@@ -1,27 +1,19 @@
 [gd_scene load_steps=5 format=4 uid="uid://c5hvh64y4o77c"]
 
-[ext_resource type="Texture2D" uid="uid://cuip4hetwmctt" path="res://Assets/Art/TMAP.png" id="1_3ptaa"]
-[ext_resource type="PackedScene" uid="uid://cly0gxqkuoiej" path="res://Player/player.tscn" id="2_w0ego"]
+[ext_resource type="Texture2D" uid="uid://cuip4hetwmctt" path="res://Assets/art/TMAP.png" id="1_3ptaa"]
+[ext_resource type="PackedScene" uid="uid://cly0gxqkuoiej" path="res://player.tscn" id="2_w0ego"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_155du"]
 texture = ExtResource("1_3ptaa")
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:0/0 = 0
-6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_vj60j"]
-physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_155du")
 
 [node name="Node2D" type="Node2D"]
@@ -29,7 +21,6 @@ sources/0 = SubResource("TileSetAtlasSource_155du")
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAAABAAAAAAAAAAAAABABAAAAABAAAAAAACABAAAAABAAAAAAADABAAAAABAAAAAAAEABAAAAABAAAAAAAFABAAAAABAAAAAAAGABAAAAABAAAAAAAHABAAAAABAAAAAAAIABAAAAABAAAAAAAJABAAAAABAAAAAAAKABAAAAABAAAAAAALABAAAAABAAAAAAAMABAAAAABAAAAAAANABAAAAABAAAAAAAOABAAAAABAAAAAAAPABAAAAABAAAAAAAQABAAAAABAAAAAAARABAAAAABAAAAAAASABAAAAABAAAAAAATABAAAAABAAAAAAAUABAAAAABAAAAAAAVABAAAAABAAAAAAAWABAAAAABAAAAAAAXABAAAAABAAAAAAAYABAAAAABAAAAAAAZABAAAAAFAAAAAAAaABAAAAAFAAAAAAAbABAAAAAFAAAAAAAcABAAAAAFAAAAAAAdABAAAAAGAAAAAAA=")
 tile_set = SubResource("TileSet_vj60j")
-collision_visibility_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_w0ego")]
-position = Vector2(233, 194)
+position = Vector2(210, 211)
