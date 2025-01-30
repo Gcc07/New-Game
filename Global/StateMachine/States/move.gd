@@ -3,19 +3,19 @@ extends MovementState
 #@export
 #var dash_state: State
 @export
-var fall_state: State
+var fall_state: MovementState
 @export
-var idle_state: State
+var idle_state: MovementState
 @export
-var jump_state: State
+var jump_state: MovementState
 
-func process_input(event: InputEvent) -> State:
+func process_input(event: InputEvent) -> MovementState:
 	#if Input.is_action_just_pressed('dash'):
 		#return dash_state
 	
 	return null
 
-func process_physics(delta: float) -> State:
+func process_physics(delta: float) -> MovementState:
 	if get_jump() and parent.is_on_floor():
 		return jump_state
 

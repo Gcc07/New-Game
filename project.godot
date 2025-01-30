@@ -18,20 +18,27 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/borderless=true
 window/stretch/mode="viewport"
 
 [dotnet]
 
 project/assembly_name="New Game"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
 "res://Assets/": "yellow",
+"res://Assets/Audio/": "yellow",
+"res://Assets/Audio/Music/": "teal",
+"res://Assets/Audio/SFX/": "blue",
 "res://Assets/Objects/": "yellow",
 "res://Global/": "teal",
 "res://Player/": "blue",
+"res://addons/": "gray",
 "res://tmp/": "purple"
 }
 

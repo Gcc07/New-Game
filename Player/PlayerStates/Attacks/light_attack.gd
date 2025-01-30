@@ -1,21 +1,29 @@
 extends ActionState
 
 @export
-var none : State
+var none_state : ActionState
+
 @onready var finished_attack : bool = false
 
 func enter() -> void:
-	super()
+	finished_attack = false
+	moveAnimations.active = false
+	actionAnimations.active = true
+	actionAnimations.play("PlayerAction/" + animation_name)
 	print("in light")
 
-func process_physics(delta: float) -> State:
-	return null
+func exit() -> void:
+	actionAnimations.active = false
 
-func process(delta: float) -> State:
-	if finished_attack == true:
-		return none
+func process_physics(delta: float) -> ActionState:
+	if finished_attack:
+		return none_state
 	else:
 		return null
+
+func process(delta: float) -> ActionState:
+	return null
+
 
 func attack_finished():
 	finished_attack = true

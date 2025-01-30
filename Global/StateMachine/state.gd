@@ -9,14 +9,15 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 var sprite: Sprite2D
-var animations: AnimationPlayer
+var moveAnimations: AnimationPlayer
+var actionAnimations: AnimationPlayer
 # var move_component - IN MOVEMENT STATE
 # var attack_component - IN ACTION STATE
 var parent: CharacterBody2D ## So things that aren't just the player can use the state machine.
 
 
 func enter() -> void:
-	animations.play(animation_name)
+	pass 
 	
 func exit() -> void:
 	pass

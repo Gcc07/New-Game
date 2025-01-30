@@ -6,22 +6,22 @@ var aim_position : Vector2 = Vector2(1, 0)
 @onready
 var player_sprite : Sprite2D = $Sprite2D
 @onready
-var movement_animations: AnimationPlayer = $MoveAnimationPlayer
+var move_animations: AnimationPlayer = $MoveAnimationPlayer
 @onready
-var attack_animations: AnimationPlayer = $AttackAnimationPlayer
+var action_animations: AnimationPlayer = $ActionAnimationPlayer
 
 @onready
 var movement_state_machine: Node = $MoveStateMachine
 @onready
-var attack_state_machine: Node = $AttackStateMachine
+var action_state_machine: Node = $ActionStateMachine
 @onready
 var player_move_component = $PlayerMoveComponent
 @onready
-var player_attack_component = $PlayerAttackComponent
+var player_action_component = $PlayerActionComponent
 
 func _ready() -> void:
-	movement_state_machine.init(self, player_sprite, movement_animations, player_move_component)
-	attack_state_machine.init(self, player_sprite, attack_animations, player_attack_component)
+	movement_state_machine.init(self, player_sprite, move_animations, action_animations, player_move_component)
+	action_state_machine.init(self, player_sprite, move_animations, action_animations, player_action_component)
 
 func _unhandled_input(event: InputEvent) -> void:
 
@@ -30,17 +30,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		aim_position = (event.position - half_viewport)
 
 	movement_state_machine.process_input(event)
-	attack_state_machine.process_input(event)
+	action_state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
 	movement_state_machine.process_physics(delta)
-	attack_state_machine.process_physics(delta)
+	action_state_machine.process_physics(delta)
 	const_wobble()
 
 func _process(delta: float) -> void:
+	print("Movement: " + move_animations.current_animation, "       Action: " + action_animations.current_animation)
 	#print("The attack is: " + attack_state_machine.current_state.name)
 	movement_state_machine.process_frame(delta)
-	attack_state_machine.process_frame(delta)
+	action_state_machine.process_frame(delta)
 
 ## ----------------------------------- ##
 

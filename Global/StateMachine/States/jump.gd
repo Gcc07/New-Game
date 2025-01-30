@@ -1,11 +1,11 @@
 extends MovementState
 
 @export
-var fall_state: State
+var fall_state: MovementState
 @export
-var idle_state: State
+var idle_state: MovementState
 @export
-var move_state: State
+var move_state: MovementState
 
 @export
 var jump_force: float = 300
@@ -14,7 +14,7 @@ func enter() -> void:
 	super()
 	parent.velocity.y = -jump_force
 
-func process_physics(delta: float) -> State:
+func process_physics(delta: float) -> MovementState:
 	parent.velocity.y += gravity * delta
 	
 	if parent.velocity.y > 0:

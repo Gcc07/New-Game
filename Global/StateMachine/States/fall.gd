@@ -1,11 +1,11 @@
 extends MovementState
 
 @export
-var idle_state: State
+var idle_state: MovementState
 @export
-var move_state: State
+var move_state: MovementState
 
-func process_physics(delta: float) -> State:
+func process_physics(delta: float) -> MovementState:
 	parent.velocity.y += gravity * delta
 
 	var movement = get_movement_input() * move_speed

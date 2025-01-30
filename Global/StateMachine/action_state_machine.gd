@@ -1,23 +1,25 @@
 extends Node
 
 @export
-var starting_state: State
-var current_state: State
+var starting_state: ActionState
+var current_state: ActionState
 
 # Initialize the state machine by giving each child (INDIVIDUAL STATE!) a ref
 # to the parent object it belongs to
-func init(parent: CharacterBody2D, sprite: Sprite2D, animations: AnimationPlayer, attack_component) -> void:
+func init(parent: CharacterBody2D, sprite: Sprite2D, moveAnimations: 
+	AnimationPlayer, actionAnimations: AnimationPlayer, action_component) -> void:
 	for child in get_children():
 		child.parent = parent
-		child.animations = animations
-		child.attack_component = attack_component
+		child.moveAnimations = moveAnimations
+		child.actionAnimations = actionAnimations
+		child.action_component = action_component
 		child.sprite = sprite
 
 	# Initialize to the default state
 	change_state(starting_state)
 
 # Change to the new state by first calling any exit logic on the current state.
-func change_state(new_state: State) -> void:
+func change_state(new_state: ActionState) -> void:
 	if current_state:
 		current_state.exit()
 
