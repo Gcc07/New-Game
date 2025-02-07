@@ -1,5 +1,7 @@
 extends Node
 
+# Component that returns information on Player movement input.
+
 # Return the desired direction of movement for the character
 # in the range [-1, 1], where positive values indicate a desire
 # to move to the right and negative values to the left.

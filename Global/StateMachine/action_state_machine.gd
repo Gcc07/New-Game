@@ -1,5 +1,7 @@
 extends Node
 
+# Action State Machine. Controls the logic of actions of an entity. 
+
 @export
 var starting_state: ActionState
 var current_state: ActionState

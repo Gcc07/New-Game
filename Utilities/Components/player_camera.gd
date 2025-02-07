@@ -1,5 +1,7 @@
 extends Camera2D
 
+# Controls Player Camera Logic.
+
 @export var target : Player
 @export var sensitivity := 0.1
 
