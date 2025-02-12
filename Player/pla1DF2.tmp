@@ -144,9 +144,8 @@ script = ExtResource("19_5hv5l")
 none_state = NodePath("../none")
 animation_name = "special_attack"
 
-[node name="none" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("light_attack_state", "heavy_attack_state", "special_attack_state")]
+[node name="none" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("light_attack_state", "heavy_attack_state")]
 script = ExtResource("13_ac5hr")
 light_attack_state = NodePath("../light")
 heavy_attack_state = NodePath("../heavy")
-special_attack_state = NodePath("../special")
 animation_name = "idle"

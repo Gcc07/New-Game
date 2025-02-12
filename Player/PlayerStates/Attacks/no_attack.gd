@@ -6,6 +6,8 @@ extends ActionState
 var light_attack_state : ActionState
 @export
 var heavy_attack_state : ActionState
+@export
+var special_attack_state : ActionState
 
 func enter() -> void:
 	actionAnimations.active = false
@@ -13,6 +15,8 @@ func enter() -> void:
 	print("in none")
 
 func process_input(event: InputEvent) -> ActionState:
+	if get_special_attack_input():
+		return special_attack_state
 	if get_light_attack_input():
 		return light_attack_state
 	if get_heavy_attack_input():

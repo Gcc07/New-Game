@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://be3mpsirj8rwt"]
 
-[ext_resource type="Texture2D" uid="uid://cca0o8n8lhrcp" path="res://Assets/Art/slice_1.png" id="1_5a26v"]
+[ext_resource type="Texture2D" uid="uid://cca0o8n8lhrcp" path="res://Assets/Art/Slice1.png" id="1_5a26v"]
 [ext_resource type="Script" path="res://Global/Projectiles/projectile.gd" id="1_x0qej"]
 [ext_resource type="Script" path="res://Utilities/Components/hurtbox.gd" id="2_3jl1t"]
 
@@ -20,6 +20,7 @@ sprite = NodePath("Sprite2D")
 collision_shape = NodePath("CollisionShape2D")
 hurtbox_shape = NodePath("ProjectileHurtbox/CollisionShape2D")
 hurtbox_size_equals_sprite = true
+projectile_sprite_texture = ExtResource("1_5a26v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_5a26v")

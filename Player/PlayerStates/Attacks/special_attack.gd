@@ -12,7 +12,7 @@ func enter() -> void:
 	moveAnimations.active = false
 	actionAnimations.active = true
 	actionAnimations.play("PlayerAction/" + animation_name)
-	print("in light")
+	print("in special")
 
 func exit() -> void:
 	actionAnimations.active = false
@@ -33,18 +33,19 @@ func spawn_corresponding_projectile():
 		var spawned_projectile := projectile.instantiate() # Instantiates the projectile created by player light attack.
 		
 		spawned_projectile.stick_to_parent = true # Sets the projectile as static, staying on the player.
-		spawned_projectile.parent_offset = Vector2(10,0)
-		spawned_projectile.projectile_sprite_texture = "uid://cca0o8n8lhrcp"
-		if spawned_projectile.stick_to_parent == true: # If the projectile is a slash or similarly behaving
-			##parent.attack_point.global_position = Vector2(0,0)
+		spawned_projectile.projectile_num_of_frames = 3
+		spawned_projectile.projectile_sprite_texture = "uid://hcpwpr1ot2sa"
+		spawned_projectile.time_to_live = .2
+		spawned_projectile.projectile_has_animation = true
+		spawned_projectile.projectile_animation_is_continous = false
 
+
+		if spawned_projectile.stick_to_parent == true: # If the projectile is a slash or similarly behaving
 			if sprite.flip_h == false: # IF FACING RIGHT
-				# spawned_projectile.sprite.flip_h = true # Flip projectile.
-				spawned_projectile.parent_offset = Vector2(-15,0)
+				spawned_projectile.parent_offset = Vector2(-21,-3)
 				spawned_projectile.scale.x = 1
 			else: #                      IF FACING LEFT
-				# spawned_projectile.sprite.flip_h = false # Don't flip projectile.
-				spawned_projectile.parent_offset = Vector2(+15,0)
+				spawned_projectile.parent_offset = Vector2(+21,-3)
 				spawned_projectile.scale.x = -1
 
 			spawned_projectile.global_position = parent.attack_point.position + spawned_projectile.parent_offset # Sets the position of the projectile
