@@ -6,7 +6,6 @@ extends Node
 signal health_changed(health: float)
 
 @export var hitbox : Hitbox
-
 @export var max_health := 10.0
 @onready var health := max_health
 

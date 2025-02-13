@@ -1,25 +1,25 @@
 [gd_scene load_steps=24 format=3 uid="uid://cly0gxqkuoiej"]
 
-[ext_resource type="Script" path="res://Player/player.gd" id="1_kty55"]
+[ext_resource type="Script" path="res://Global/Entities/Player/player.gd" id="1_kty55"]
 [ext_resource type="Texture2D" uid="uid://b1ni4ev2i4io8" path="res://Assets/Art/RenjiRun-Sheet.png" id="2_i1k8r"]
-[ext_resource type="AnimationLibrary" uid="uid://dd4yvq0oqh767" path="res://Player/PlayerAction.res" id="2_y8nmg"]
-[ext_resource type="Script" path="res://Utilities/Components/player_move_component.gd" id="3_5a672"]
-[ext_resource type="AnimationLibrary" uid="uid://bn7c4qjgnvlcx" path="res://Player/PlayerMove.res" id="3_sa4b0"]
-[ext_resource type="Script" path="res://Utilities/Components/player_camera.gd" id="4_yck8p"]
-[ext_resource type="Script" path="res://Player/player_attack.gd" id="4_ywbxx"]
+[ext_resource type="AnimationLibrary" uid="uid://dd4yvq0oqh767" path="res://Global/Entities/Player/Animations/PlayerAction.res" id="2_y8nmg"]
+[ext_resource type="Script" path="res://Global/Entities/Player/player_move_component.gd" id="3_5a672"]
+[ext_resource type="AnimationLibrary" uid="uid://bn7c4qjgnvlcx" path="res://Global/Entities/Player/Animations/PlayerMove.res" id="3_sa4b0"]
+[ext_resource type="Script" path="res://Global/Entities/Player/player_camera.gd" id="4_yck8p"]
+[ext_resource type="Script" path="res://Global/Entities/Player/player_action_component.gd" id="4_ywbxx"]
 [ext_resource type="PackedScene" uid="uid://c2njkfc01sgji" path="res://Global/StateMachine/move_state_machine.tscn" id="6_8sue5"]
-[ext_resource type="Script" path="res://Utilities/Components/health_component.gd" id="7_eu4vx"]
+[ext_resource type="Script" path="res://Global/Components/health_component.gd" id="7_eu4vx"]
 [ext_resource type="Script" path="res://Global/StateMachine/States/move.gd" id="7_jklmg"]
 [ext_resource type="Script" path="res://Global/StateMachine/States/fall.gd" id="8_h88bi"]
 [ext_resource type="Script" path="res://Global/StateMachine/States/idle.gd" id="9_3wfp4"]
 [ext_resource type="Script" path="res://Global/StateMachine/States/jump.gd" id="10_6iif7"]
 [ext_resource type="PackedScene" uid="uid://07qnueve2in3" path="res://Global/StateMachine/action_state_machine.tscn" id="11_8c3ms"]
-[ext_resource type="Script" path="res://Player/PlayerStates/Attacks/light_attack.gd" id="11_uflhd"]
-[ext_resource type="Script" path="res://Player/PlayerStates/Attacks/no_attack.gd" id="13_ac5hr"]
-[ext_resource type="Script" path="res://Player/PlayerStates/Attacks/heavy_attack.gd" id="15_kk5jy"]
+[ext_resource type="Script" path="res://Global/Entities/Player/PlayerStates/Attacks/light_attack.gd" id="11_uflhd"]
+[ext_resource type="Script" path="res://Global/Entities/Player/PlayerStates/Attacks/no_attack.gd" id="13_ac5hr"]
+[ext_resource type="Script" path="res://Global/Entities/Player/PlayerStates/Attacks/heavy_attack.gd" id="15_kk5jy"]
 [ext_resource type="AudioStream" uid="uid://dg7plxm67uw40" path="res://Assets/Audio/SFX/Swing.ogg" id="16_bcadw"]
-[ext_resource type="PackedScene" uid="uid://jmnf0fy8c8di" path="res://Global/hitbox.tscn" id="18_3h6te"]
-[ext_resource type="Script" path="res://Player/PlayerStates/Attacks/special_attack.gd" id="19_5hv5l"]
+[ext_resource type="PackedScene" uid="uid://jmnf0fy8c8di" path="res://Global/Components/hitbox.tscn" id="18_3h6te"]
+[ext_resource type="Script" path="res://Global/Entities/Player/PlayerStates/Attacks/special_attack.gd" id="19_5hv5l"]
 
 [sub_resource type="Animation" id="Animation_hd8eq"]
 length = 0.001
@@ -82,6 +82,7 @@ script = ExtResource("7_eu4vx")
 hitbox = NodePath("../Hitbox")
 
 [node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+offset = Vector2(0, -10)
 zoom = Vector2(4, 4)
 script = ExtResource("4_yck8p")
 target = NodePath("..")

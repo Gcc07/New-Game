@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cca0o8n8lhrcp" path="res://Assets/Art/slice_1.png" id="1_5a26v"]
 [ext_resource type="Script" path="res://Global/Projectiles/projectile.gd" id="1_x0qej"]
-[ext_resource type="Script" path="res://Utilities/Components/hurtbox.gd" id="2_3jl1t"]
+[ext_resource type="Script" path="res://Global/Components/hurtbox.gd" id="3_1lnlt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwxay"]
 size = Vector2(1, 1)
@@ -22,6 +22,7 @@ hurtbox_shape = NodePath("ProjectileHurtbox/CollisionShape2D")
 hurtbox_size_equals_sprite = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
 texture = ExtResource("1_5a26v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -30,7 +31,7 @@ debug_color = Color(0.228855, 0.508907, 1, 0.42)
 
 [node name="ProjectileHurtbox" type="Area2D" parent="."]
 collision_layer = 4
-script = ExtResource("2_3jl1t")
+script = ExtResource("3_1lnlt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileHurtbox"]
 shape = SubResource("RectangleShape2D_lbbeq")

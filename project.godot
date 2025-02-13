@@ -36,7 +36,9 @@ folder_colors={
 "res://Assets/Audio/Music/": "teal",
 "res://Assets/Audio/SFX/": "blue",
 "res://Global/": "teal",
-"res://Player/": "blue",
+"res://Global/Entities/Enemies/": "red",
+"res://Global/Entities/NPCs/": "blue",
+"res://Global/Entities/Player/": "yellow",
 "res://Utilities/": "gray",
 "res://addons/": "gray",
 "res://tmp/": "purple"

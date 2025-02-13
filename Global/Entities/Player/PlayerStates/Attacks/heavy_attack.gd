@@ -34,11 +34,11 @@ func spawn_corresponding_projectile():
 
 			if sprite.flip_h == false: # IF FACING RIGHT
 				# spawned_projectile.sprite.flip_h = true # Flip projectile.
-				spawned_projectile.parent_offset = Vector2(-15,-6)
+				spawned_projectile.parent_offset = Vector2(-15,-8)
 				spawned_projectile.scale.x = 1
 			else: #                      IF FACING LEFT
 				# spawned_projectile.sprite.flip_h = false # Don't flip projectile.
-				spawned_projectile.parent_offset = Vector2(+15,-6)
+				spawned_projectile.parent_offset = Vector2(+15,-8)
 				spawned_projectile.scale.x = -1
 
 			spawned_projectile.global_position = parent.attack_point.position + spawned_projectile.parent_offset # Sets the position of the projectile

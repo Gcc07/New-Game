@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://c5hvh64y4o77c"]
+[gd_scene load_steps=9 format=4 uid="uid://c5hvh64y4o77c"]
 
 [ext_resource type="Texture2D" uid="uid://cuip4hetwmctt" path="res://Assets/Art/TMAP.png" id="1_3ptaa"]
-[ext_resource type="PackedScene" uid="uid://cly0gxqkuoiej" path="res://Player/player.tscn" id="2_w0ego"]
+[ext_resource type="PackedScene" uid="uid://cly0gxqkuoiej" path="res://Global/Entities/Player/player.tscn" id="2_w0ego"]
 [ext_resource type="Texture2D" uid="uid://dlmaqaklw4s14" path="res://Assets/Art/TestEnv.png" id="3_kvelk"]
 [ext_resource type="Shader" path="res://Global/Shaders/main.gdshader" id="4_ragg7"]
+[ext_resource type="PackedScene" uid="uid://cqxlfhln76dxm" path="res://Global/Entities/Enemies/Handler/handler.tscn" id="5_dknhj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_155du"]
 texture = ExtResource("1_3ptaa")
@@ -57,3 +58,6 @@ offset_left = 1068.0
 offset_top = 42.0
 offset_right = 1235.0
 offset_bottom = 132.0
+
+[node name="Handler" parent="." instance=ExtResource("5_dknhj")]
+position = Vector2(168.542, 223.53)

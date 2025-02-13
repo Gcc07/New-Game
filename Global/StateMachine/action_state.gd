@@ -4,7 +4,8 @@ extends State
 var action_component
 
 func enter() -> void:
-	actionAnimations.play("PlayerAction/" + animation_name)
+	actionAnimations.play(str(parent.name)+"Action/" + animation_name)
+
 	#if animation_name != "idle":
 		#animations.play(animation_name)
 
