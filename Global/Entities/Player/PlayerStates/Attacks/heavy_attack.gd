@@ -1,3 +1,4 @@
+class_name PlayerHeavyAttackState
 extends ActionState
 
 @export
@@ -12,7 +13,6 @@ func enter() -> void:
 	moveAnimations.active = false
 	actionAnimations.active = true
 	actionAnimations.play("PlayerAction/" + animation_name)
-	print("in heavy")
 
 func exit() -> void:
 	actionAnimations.active = false
@@ -29,6 +29,8 @@ func spawn_corresponding_projectile():
 		spawned_projectile.stick_to_parent = true # Sets the projectile as static, staying on the player.
 		spawned_projectile.parent_offset = Vector2(10,0)
 		spawned_projectile.projectile_sprite_texture = "uid://ci5ekwenhgfwy"
+		spawned_projectile.is_friendly = true
+		spawned_projectile.damage = 5.0
 		if spawned_projectile.stick_to_parent == true: # If the projectile is a slash or similarly behaving
 			##parent.attack_point.global_position = Vector2(0,0)
 
@@ -43,11 +45,6 @@ func spawn_corresponding_projectile():
 
 			spawned_projectile.global_position = parent.attack_point.position + spawned_projectile.parent_offset # Sets the position of the projectile
 			parent.add_child(spawned_projectile)
-			print("added into player")
-
-
-func process(delta: float) -> ActionState:
-	return null
 
 func attack_finished():
 	finished_attack = true

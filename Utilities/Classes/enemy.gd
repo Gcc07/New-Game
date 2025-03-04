@@ -16,9 +16,16 @@ var movement_state_machine: Node = $MoveStateMachine
 @onready
 var action_state_machine: Node = $ActionStateMachine
 @onready
-var enemy_move_component = $EnemyMoveComponent
+var enemy_move_component : Node = $EnemyMoveComponent
 @onready
-var enemy_action_component = $EnemyActionComponent
+var enemy_action_component : Node = $EnemyActionComponent
+
+@export_group("Enemy AI Properties")
+@export
+var AI_notice_radius := 60.0
+@export 
+var AI_pursue_radius := 100.0
+
 
 func _ready() -> void:
 

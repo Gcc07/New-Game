@@ -1,8 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://be3mpsirj8rwt"]
 
-[ext_resource type="Texture2D" uid="uid://cca0o8n8lhrcp" path="res://Assets/Art/slice_1.png" id="1_5a26v"]
-[ext_resource type="Script" path="res://Global/Projectiles/projectile.gd" id="1_x0qej"]
-[ext_resource type="Script" path="res://Global/Components/hurtbox.gd" id="3_1lnlt"]
+[ext_resource type="Script" uid="uid://dq8rg7w5y8i6a" path="res://Global/Projectiles/projectile.gd" id="1_x0qej"]
+[ext_resource type="Script" uid="uid://cg3qeta413pu0" path="res://Global/Components/hurtbox.gd" id="3_1lnlt"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y6bbh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwxay"]
 size = Vector2(1, 1)
@@ -23,7 +24,7 @@ hurtbox_size_equals_sprite = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 2
-texture = ExtResource("1_5a26v")
+texture = SubResource("PlaceholderTexture2D_y6bbh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qwxay")
@@ -31,6 +32,7 @@ debug_color = Color(0.228855, 0.508907, 1, 0.42)
 
 [node name="ProjectileHurtbox" type="Area2D" parent="."]
 collision_layer = 4
+collision_mask = 3
 script = ExtResource("3_1lnlt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileHurtbox"]

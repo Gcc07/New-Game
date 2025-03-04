@@ -13,13 +13,12 @@ signal health_changed(health: float)
 ## Weird name, but "thing_being_attacked" just applies so all entities can
 ## be assigned this node.
 
-
 func _ready():
 	if hitbox:
 		hitbox.damaged.connect(on_damaged)
 
-
 func on_damaged(attack: Attack):
+	print("attacked: Health: ", attack.damage, " damage")
 	if !thing_being_attacked.alive:
 		return
 	

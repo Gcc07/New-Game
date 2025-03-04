@@ -16,4 +16,6 @@ func on_area_entered(area: Area2D):
 		var attack := Attack.new()
 		attack.damage = projectile.damage
 		area.damage(attack)
+		print("Projectile has hit the target:" + area.get_parent().name)
 		hit_target.emit()
+		

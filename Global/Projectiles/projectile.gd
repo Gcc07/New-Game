@@ -10,6 +10,8 @@ extends CharacterBody2D
 @export_group("Projectile Properties")
 ## Is the projectile static.(Does it stay by the entity that created it)
 @export var stick_to_parent := false
+## Is the projectile player friendly.
+@export var is_friendly := true
 ## The speed of the Projectile 
 @export var speed := 150.0
 ## The amount of damage the Projectile deals.
@@ -39,10 +41,10 @@ func _ready() -> void:
 	set_hurtbox_size_equals_sprite(hurtbox_size_equals_sprite)
 	set_attack_sprite(projectile_sprite_texture)
 	initialize_projectile_frames(projectile_num_of_frames)
+	initialize_is_friendly(is_friendly)
 	start_timer()
 
 	if hurtbox:
-		print()
 		hurtbox.hit_target.connect(on_target_hit)
 
 func _process(delta: float) -> void:
@@ -50,7 +52,11 @@ func _process(delta: float) -> void:
 
 var current_pierce_count := 0
 
-
+func initialize_is_friendly(friendly):
+	if friendly:
+		hurtbox.collision_mask = 2
+	else:
+		hurtbox.collision_max = 1
 
 func initialize_projectile_frames(num_of_frames):
 	sprite.vframes = num_of_frames
@@ -92,7 +98,6 @@ func control_projectile_animations(active: bool, continous: bool):
 
 	elif active && ! continous:
 		if snapped(timer.time_left, 0.0001) in interval_array && sprite.frame != projectile_num_of_frames:
-			print("frame updated")
 			sprite.frame += 1
 	else:
 		pass

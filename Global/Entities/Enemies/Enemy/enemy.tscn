@@ -1,0 +1,188 @@
+[gd_scene load_steps=29 format=3 uid="uid://ct1cjbho53qot"]
+
+[ext_resource type="Script" uid="uid://dspysyg43f0im" path="res://Utilities/Classes/enemy.gd" id="1_8aesk"]
+[ext_resource type="AnimationLibrary" uid="uid://1fqnc4lwlfun" path="res://Global/Entities/Enemies/Enemy/Animations/EnemyMove.res" id="2_do23a"]
+[ext_resource type="Texture2D" uid="uid://dsb6tv6epn1mh" path="res://Assets/Art/Handler-sheet.png" id="2_ib6va"]
+[ext_resource type="PackedScene" uid="uid://jmnf0fy8c8di" path="res://Global/Components/hitbox.tscn" id="3_qicfr"]
+[ext_resource type="AnimationLibrary" uid="uid://bpohnjdnr7cam" path="res://Global/Entities/Enemies/Enemy/Animations/EnemyAction.res" id="3_uyegr"]
+[ext_resource type="PackedScene" uid="uid://07qnueve2in3" path="res://Global/Entities/StateMachines/action_state_machine.tscn" id="4_nwqih"]
+[ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="4_r87u3"]
+[ext_resource type="PackedScene" uid="uid://c2njkfc01sgji" path="res://Global/Entities/StateMachines/move_state_machine.tscn" id="5_dkqxv"]
+[ext_resource type="Script" uid="uid://cql8acbpetak4" path="res://Global/Entities/Enemies/Enemy/enemy_move_component.gd" id="5_y62e2"]
+[ext_resource type="Script" uid="uid://vdwjy5ar2b6m" path="res://Global/Entities/PublicStates/Movement/move.gd" id="6_am21n"]
+[ext_resource type="Script" uid="uid://cpkorungyuty6" path="res://Global/Entities/Enemies/Enemy/enemy_action_component.gd" id="6_faoks"]
+[ext_resource type="Script" uid="uid://dwydmtbkvq638" path="res://Global/Components/health_label.gd" id="6_k1scs"]
+[ext_resource type="Script" uid="uid://b030i0hjq4277" path="res://Global/Entities/Enemies/Enemy/UniqueStates/light.gd" id="6_lwoos"]
+[ext_resource type="Script" uid="uid://bybtb1c113b3d" path="res://Global/Entities/PublicStates/Movement/idle.gd" id="7_lclfu"]
+[ext_resource type="Script" uid="uid://bnycl8fb3yooy" path="res://Global/Entities/PublicStates/Movement/jump.gd" id="8_1dunk"]
+[ext_resource type="Script" uid="uid://c6klv37yf1avq" path="res://Global/Entities/Enemies/Enemy/UniqueStates/heavy.gd" id="8_teoi8"]
+[ext_resource type="Script" uid="uid://swrkuwy8kc7r" path="res://Global/Entities/Enemies/Enemy/UniqueStates/none.gd" id="8_wa8xr"]
+[ext_resource type="Script" uid="uid://dyrygqjk1mao2" path="res://Global/Entities/PublicStates/Movement/fall.gd" id="14_qn5lm"]
+
+[sub_resource type="Animation" id="Animation_1f2ae"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_avsj1"]
+_data = {
+&"RESET": SubResource("Animation_1f2ae")
+}
+
+[sub_resource type="SystemFont" id="SystemFont_rkfol"]
+font_weight = 200
+font_stretch = 50
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_y1oyc"]
+line_spacing = 0.0
+font = SubResource("SystemFont_rkfol")
+font_size = 8
+font_color = Color(0.854902, 0.301961, 0.301961, 1)
+outline_size = 1
+outline_color = Color(1, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_fmbsw"]
+colors = PackedColorArray(0.205117, 0.205117, 0.205117, 1, 0.203922, 0.203922, 0.203922, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0jn2s"]
+gradient = SubResource("Gradient_fmbsw")
+width = 40
+height = 8
+
+[sub_resource type="Gradient" id="Gradient_ap0co"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.854902, 0.301961, 0.301961, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mdtkf"]
+gradient = SubResource("Gradient_ap0co")
+width = 36
+height = 6
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c36mc"]
+radius = 66.4831
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pvppk"]
+radius = 7.0
+height = 14.0
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_8aesk")
+
+[node name="Hitbox2" parent="." instance=ExtResource("3_qicfr")]
+position = Vector2(0, -7)
+collision_layer = 2
+collision_mask = 5
+
+[node name="AttackPoint" type="Node2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="MoveAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_avsj1"),
+"EnemyMove": ExtResource("2_do23a")
+}
+
+[node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"EnemyAction": ExtResource("3_uyegr")
+}
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
+script = ExtResource("4_r87u3")
+hitbox = NodePath("../Hitbox2")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -38.0
+offset_right = 40.0
+offset_bottom = -15.0
+text = "
+"
+label_settings = SubResource("LabelSettings_y1oyc")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+script = ExtResource("6_k1scs")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HealthLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.435
+anchor_right = 0.25
+anchor_bottom = 0.435
+offset_top = -0.00500107
+offset_right = 40.0
+offset_bottom = 9.995
+max_value = 10.0
+step = 0.0
+value = 10.0
+rounded = true
+texture_under = SubResource("GradientTexture2D_0jn2s")
+texture_progress = SubResource("GradientTexture2D_mdtkf")
+texture_progress_offset = Vector2(2, 1)
+
+[node name="EnemyMoveComponent" type="Node" parent="."]
+script = ExtResource("5_y62e2")
+
+[node name="NoticeBox" type="Area2D" parent="EnemyMoveComponent"]
+collision_layer = 0
+collision_mask = 7
+
+[node name="NoticeShape" type="CollisionShape2D" parent="EnemyMoveComponent/NoticeBox"]
+shape = SubResource("CircleShape2D_c36mc")
+
+[node name="EnemyActionComponent" type="Node" parent="."]
+script = ExtResource("6_faoks")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("2_ib6va")
+hframes = 7
+vframes = 4
+frame = 7
+
+[node name="GroundCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_pvppk")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_qicfr")]
+position = Vector2(0, -7)
+
+[node name="ActionStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("4_nwqih")]
+starting_state = NodePath("none")
+
+[node name="light" type="Node" parent="ActionStateMachine"]
+script = ExtResource("6_lwoos")
+
+[node name="heavy" type="Node" parent="ActionStateMachine"]
+script = ExtResource("8_teoi8")
+
+[node name="none" type="Node" parent="ActionStateMachine"]
+script = ExtResource("8_wa8xr")
+
+[node name="MoveStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("5_dkqxv")]
+starting_state = NodePath("idle")
+
+[node name="move" type="Node" parent="MoveStateMachine"]
+script = ExtResource("6_am21n")
+
+[node name="idle" type="Node" parent="MoveStateMachine"]
+script = ExtResource("7_lclfu")
+
+[node name="jump" type="Node" parent="MoveStateMachine"]
+script = ExtResource("8_1dunk")
+
+[node name="fall" type="Node" parent="MoveStateMachine"]
+script = ExtResource("14_qn5lm")

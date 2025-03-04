@@ -1,3 +1,4 @@
+class_name PlayerLightAttackState
 extends ActionState
 
 @export
@@ -12,7 +13,6 @@ func enter() -> void:
 	moveAnimations.active = false
 	actionAnimations.active = true
 	actionAnimations.play("PlayerAction/" + animation_name)
-	print("in light")
 
 func exit() -> void:
 	actionAnimations.active = false
@@ -35,6 +35,8 @@ func spawn_corresponding_projectile():
 		spawned_projectile.stick_to_parent = true # Sets the projectile as static, staying on the player.
 		spawned_projectile.parent_offset = Vector2(10,0)
 		spawned_projectile.projectile_sprite_texture = "uid://cca0o8n8lhrcp"
+		spawned_projectile.is_friendly = true
+		spawned_projectile.damage = 3.0
 		if spawned_projectile.stick_to_parent == true: # If the projectile is a slash or similarly behaving
 			##parent.attack_point.global_position = Vector2(0,0)
 
@@ -49,11 +51,10 @@ func spawn_corresponding_projectile():
 
 			spawned_projectile.global_position = parent.attack_point.position + spawned_projectile.parent_offset # Sets the position of the projectile
 			parent.add_child(spawned_projectile)
-			print("added into player")
 
 		if spawned_projectile.stick_to_parent == false:
 			get_tree().root.add_child(spawned_projectile) # If the projectile is moving. (like a bullet, or energy blast)
-			print("added into world")
+
 
 func attack_finished():
 	

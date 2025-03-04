@@ -1,3 +1,4 @@
+class_name PlayerMoveComponent
 extends Node
 
 # Component that returns information on Player movement input.

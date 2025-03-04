@@ -1,3 +1,4 @@
+class_name PlayerActionComponent
 extends Node
 
 # Return a boolean indicating if the character wants to attack

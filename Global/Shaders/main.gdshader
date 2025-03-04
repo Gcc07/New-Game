@@ -6,9 +6,9 @@ uniform sampler2D SCREEN_TEXTURE : hint_screen_texture,filter_nearest,repeat_dis
 void fragment() {
 	//set pallet
 	vec3 palette[3];
-		palette[0] = vec3(0.051, 0.051, 0.078);
-		palette[1] = vec3(0.322, 0.149, 0.243);
-		palette[2] = vec3(0.675, 0.200, 0.196);
+		palette[0] = vec3(1, 1, 1);
+		palette[1] = vec3(0, 0, 0);
+		palette[2] = vec3(0.2, 0.200, 0.2);
 
 	// find closest colour
 	vec3 screen_texture_color = texture(SCREEN_TEXTURE,UV).rgb;

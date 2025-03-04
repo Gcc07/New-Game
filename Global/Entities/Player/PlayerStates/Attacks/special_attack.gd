@@ -1,3 +1,4 @@
+class_name PlayerSpecialAttackState
 extends ActionState
 
 @export
@@ -12,7 +13,6 @@ func enter() -> void:
 	moveAnimations.active = false
 	actionAnimations.active = true
 	actionAnimations.play("PlayerAction/" + animation_name)
-	print("in special")
 
 func exit() -> void:
 	actionAnimations.active = false
@@ -38,7 +38,8 @@ func spawn_corresponding_projectile():
 		spawned_projectile.time_to_live = .2
 		spawned_projectile.projectile_has_animation = true
 		spawned_projectile.projectile_animation_is_continous = false
-
+		spawned_projectile.is_friendly = true
+		spawned_projectile.damage = 4.0
 
 		if spawned_projectile.stick_to_parent == true: # If the projectile is a slash or similarly behaving
 			if sprite.flip_h == false: # IF FACING RIGHT
@@ -50,11 +51,9 @@ func spawn_corresponding_projectile():
 
 			spawned_projectile.global_position = parent.attack_point.position + spawned_projectile.parent_offset # Sets the position of the projectile
 			parent.add_child(spawned_projectile)
-			print("added into player")
 
 		if spawned_projectile.stick_to_parent == false:
 			get_tree().root.add_child(spawned_projectile) # If the projectile is moving. (like a bullet, or energy blast)
-			print("added into world")
 
 func attack_finished():
 	

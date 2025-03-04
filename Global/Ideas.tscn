@@ -1,0 +1,160 @@
+[gd_scene load_steps=19 format=3 uid="uid://coi28ed57xk3v"]
+
+[ext_resource type="Shader" uid="uid://1qgomy1ob5j" path="res://Global/Shaders/electric.gdshader" id="1_juqt2"]
+[ext_resource type="Shader" uid="uid://njvlweebk5iw" path="res://Global/Scenes/crt.gdshader" id="2_iqity"]
+[ext_resource type="Texture2D" uid="uid://bnduq2lxy6ry2" path="res://Assets/Art/Entropy.png" id="2_pcqml"]
+[ext_resource type="Script" uid="uid://u1nce6x1qvai" path="res://Global/eye_of_entropy.gd" id="4_0ours"]
+[ext_resource type="Shader" uid="uid://bj4qqcw03j4qq" path="res://Global/Shaders/main.gdshader" id="4_juucd"]
+[ext_resource type="Script" uid="uid://drh8v0kxbljwe" path="res://Global/TMP/zoom.gd" id="5_p75ce"]
+[ext_resource type="Shader" uid="uid://bsjd675emi25t" path="res://Global/Shaders/Stars.gdshader" id="6_8xler"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_te42r"]
+shader = ExtResource("6_8xler")
+shader_parameter/zoom = 2.0
+shader_parameter/rotate_speed = 0.5
+shader_parameter/disp = Vector2(0.5, 0.5)
+shader_parameter/transparent = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1vtn6"]
+shader = ExtResource("2_iqity")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.557
+shader_parameter/scanlines_width = 0.391
+shader_parameter/grille_opacity = 0.323
+shader_parameter/resolution = Vector2(10, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 21.741
+shader_parameter/roll_variation = 0.368
+shader_parameter/distort_intensity = 0.18
+shader_parameter/noise_opacity = 0.434
+shader_parameter/noise_speed = 10.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 5.0
+shader_parameter/clip_warp = true
+shader_parameter/vignette_intensity = 1.0
+shader_parameter/vignette_opacity = 1.0
+
+[sub_resource type="Gradient" id="Gradient_a2g6i"]
+offsets = PackedFloat32Array(0, 0.795082, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.057377, 0.057377, 0.057377, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rxu3k"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_86tbs"]
+width = 100
+seamless = true
+seamless_blend_skirt = 0.312
+color_ramp = SubResource("Gradient_a2g6i")
+noise = SubResource("FastNoiseLite_rxu3k")
+
+[sub_resource type="Gradient" id="Gradient_khfru"]
+offsets = PackedFloat32Array(0, 0.0901639, 0.147541, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.701856, 0.654242, 1, 0.866414, 0.878732, 0.933942, 1, 0.927215, 0.940397, 0.999482, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_og6rp"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_glp2x"]
+seamless = true
+seamless_blend_skirt = 0.218
+color_ramp = SubResource("Gradient_khfru")
+noise = SubResource("FastNoiseLite_og6rp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_82eux"]
+shader = ExtResource("1_juqt2")
+shader_parameter/noise = SubResource("NoiseTexture2D_86tbs")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_glp2x")
+shader_parameter/brightness = 1.0
+shader_parameter/time_scale = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fyowy"]
+shader = ExtResource("4_juucd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gpgep"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(-2, 13)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Eye2" type="TextureRect" parent="Control"]
+visible = false
+z_index = 10
+material = SubResource("ShaderMaterial_te42r")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(32, 13.1016)
+texture = ExtResource("2_pcqml")
+expand_mode = 3
+stretch_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+visible = false
+material = SubResource("ShaderMaterial_1vtn6")
+layout_mode = 0
+offset_left = 595.0
+offset_top = 302.0
+offset_right = 688.0
+offset_bottom = 414.0
+texture = ExtResource("2_pcqml")
+expand_mode = 1
+
+[node name="Entropy" type="ColorRect" parent="Control"]
+z_index = -2
+material = SubResource("ShaderMaterial_82eux")
+layout_mode = 0
+offset_left = 280.0
+offset_top = -2.0
+offset_right = 459.0
+offset_bottom = 177.0
+scale = Vector2(4, 4)
+script = ExtResource("4_0ours")
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+visible = false
+z_index = -1
+material = SubResource("ShaderMaterial_fyowy")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Eye" type="TextureRect" parent="Control"]
+material = SubResource("ShaderMaterial_gpgep")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 619.0
+offset_top = 309.0
+offset_right = 659.0
+offset_bottom = 364.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pcqml")
+stretch_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(639, 355)
+script = ExtResource("5_p75ce")

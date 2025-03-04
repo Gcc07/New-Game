@@ -1,25 +1,26 @@
-[gd_scene load_steps=24 format=3 uid="uid://cly0gxqkuoiej"]
+[gd_scene load_steps=25 format=3 uid="uid://cly0gxqkuoiej"]
 
-[ext_resource type="Script" path="res://Global/Entities/Player/player.gd" id="1_kty55"]
+[ext_resource type="Script" uid="uid://dk4dgxmfagupv" path="res://Global/Entities/Player/player.gd" id="1_kty55"]
 [ext_resource type="Texture2D" uid="uid://b1ni4ev2i4io8" path="res://Assets/Art/RenjiRun-Sheet.png" id="2_i1k8r"]
 [ext_resource type="AnimationLibrary" uid="uid://dd4yvq0oqh767" path="res://Global/Entities/Player/Animations/PlayerAction.res" id="2_y8nmg"]
-[ext_resource type="Script" path="res://Global/Entities/Player/player_move_component.gd" id="3_5a672"]
+[ext_resource type="Script" uid="uid://b423telj4t1ps" path="res://Global/Entities/Player/player_move_component.gd" id="3_5a672"]
 [ext_resource type="AnimationLibrary" uid="uid://bn7c4qjgnvlcx" path="res://Global/Entities/Player/Animations/PlayerMove.res" id="3_sa4b0"]
-[ext_resource type="Script" path="res://Global/Entities/Player/player_camera.gd" id="4_yck8p"]
-[ext_resource type="Script" path="res://Global/Entities/Player/player_action_component.gd" id="4_ywbxx"]
-[ext_resource type="PackedScene" uid="uid://c2njkfc01sgji" path="res://Global/StateMachine/move_state_machine.tscn" id="6_8sue5"]
-[ext_resource type="Script" path="res://Global/Components/health_component.gd" id="7_eu4vx"]
-[ext_resource type="Script" path="res://Global/StateMachine/States/move.gd" id="7_jklmg"]
-[ext_resource type="Script" path="res://Global/StateMachine/States/fall.gd" id="8_h88bi"]
-[ext_resource type="Script" path="res://Global/StateMachine/States/idle.gd" id="9_3wfp4"]
-[ext_resource type="Script" path="res://Global/StateMachine/States/jump.gd" id="10_6iif7"]
-[ext_resource type="PackedScene" uid="uid://07qnueve2in3" path="res://Global/StateMachine/action_state_machine.tscn" id="11_8c3ms"]
-[ext_resource type="Script" path="res://Global/Entities/Player/PlayerStates/Attacks/light_attack.gd" id="11_uflhd"]
-[ext_resource type="Script" path="res://Global/Entities/Player/PlayerStates/Attacks/no_attack.gd" id="13_ac5hr"]
-[ext_resource type="Script" path="res://Global/Entities/Player/PlayerStates/Attacks/heavy_attack.gd" id="15_kk5jy"]
+[ext_resource type="Script" uid="uid://c7vi47ybajeqd" path="res://Global/Entities/Player/player_camera.gd" id="4_yck8p"]
+[ext_resource type="Script" uid="uid://drxj12esmfjyt" path="res://Global/Entities/Player/player_action_component.gd" id="4_ywbxx"]
+[ext_resource type="PackedScene" uid="uid://c2njkfc01sgji" path="res://Global/Entities/StateMachines/move_state_machine.tscn" id="6_8sue5"]
+[ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="7_eu4vx"]
+[ext_resource type="Script" uid="uid://vdwjy5ar2b6m" path="res://Global/Entities/PublicStates/Movement/move.gd" id="7_jklmg"]
+[ext_resource type="Script" uid="uid://dyrygqjk1mao2" path="res://Global/Entities/PublicStates/Movement/fall.gd" id="8_h88bi"]
+[ext_resource type="Script" uid="uid://bybtb1c113b3d" path="res://Global/Entities/PublicStates/Movement/idle.gd" id="9_3wfp4"]
+[ext_resource type="Script" uid="uid://bnycl8fb3yooy" path="res://Global/Entities/PublicStates/Movement/jump.gd" id="10_6iif7"]
+[ext_resource type="PackedScene" uid="uid://07qnueve2in3" path="res://Global/Entities/StateMachines/action_state_machine.tscn" id="11_8c3ms"]
+[ext_resource type="Script" uid="uid://7rvjlcoo5kf1" path="res://Global/Entities/Player/PlayerStates/Attacks/light_attack.gd" id="11_uflhd"]
+[ext_resource type="Script" uid="uid://dgrt2uvpj1gpx" path="res://Global/Entities/Player/PlayerStates/Attacks/no_attack.gd" id="13_ac5hr"]
+[ext_resource type="Script" uid="uid://danmk4qa1r0fc" path="res://Global/Entities/Player/PlayerStates/Attacks/heavy_attack.gd" id="15_kk5jy"]
 [ext_resource type="AudioStream" uid="uid://dg7plxm67uw40" path="res://Assets/Audio/SFX/Swing.ogg" id="16_bcadw"]
 [ext_resource type="PackedScene" uid="uid://jmnf0fy8c8di" path="res://Global/Components/hitbox.tscn" id="18_3h6te"]
-[ext_resource type="Script" path="res://Global/Entities/Player/PlayerStates/Attacks/special_attack.gd" id="19_5hv5l"]
+[ext_resource type="Script" uid="uid://bmyoc3fhdw7ex" path="res://Global/Entities/Player/PlayerStates/Attacks/special_attack.gd" id="19_5hv5l"]
+[ext_resource type="Script" uid="uid://y4rs71ay7bna" path="res://Global/Entities/PublicStates/Action/death.gd" id="21_5fg26"]
 
 [sub_resource type="Animation" id="Animation_hd8eq"]
 length = 0.001
@@ -38,7 +39,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_asgkc"]
 _data = {
-"RESET": SubResource("Animation_hd8eq")
+&"RESET": SubResource("Animation_hd8eq")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rjofx"]
@@ -48,8 +49,9 @@ height = 20.0
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_kty55")
 
-[node name="AttackPoint" type="Node2D" parent="."]
-position = Vector2(0, -10)
+[node name="Hitbox" parent="." instance=ExtResource("18_3h6te")]
+collision_mask = 6
+player_or_npc = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -20)
@@ -91,10 +93,11 @@ target = NodePath("..")
 position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_rjofx")
 
-[node name="Hitbox" parent="." instance=ExtResource("18_3h6te")]
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_bcadw")
+
+[node name="AttackPoint" type="Node2D" parent="."]
+position = Vector2(0, -10)
 
 [node name="MoveStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("6_8sue5")]
 starting_state = NodePath("idle")
@@ -129,25 +132,34 @@ animation_name = "jump"
 [node name="ActionStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("11_8c3ms")]
 starting_state = NodePath("none")
 
-[node name="light" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state")]
+[node name="light" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state")]
 script = ExtResource("11_uflhd")
 none_state = NodePath("../none")
+death_state = NodePath("../death")
 animation_name = "light_attack"
 priority = 1
 
-[node name="heavy" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state")]
+[node name="heavy" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state")]
 script = ExtResource("15_kk5jy")
 none_state = NodePath("../none")
+death_state = NodePath(".")
 animation_name = "heavy_attack"
 
-[node name="special" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state")]
+[node name="special" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state")]
 script = ExtResource("19_5hv5l")
 none_state = NodePath("../none")
+death_state = NodePath("../death")
 animation_name = "special_attack"
 
-[node name="none" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("light_attack_state", "heavy_attack_state", "special_attack_state")]
+[node name="none" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("light_attack_state", "heavy_attack_state", "special_attack_state", "death_state")]
 script = ExtResource("13_ac5hr")
 light_attack_state = NodePath("../light")
 heavy_attack_state = NodePath("../heavy")
 special_attack_state = NodePath("../special")
-animation_name = "idle"
+death_state = NodePath("../death")
+
+[node name="death" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("death_state")]
+script = ExtResource("21_5fg26")
+death_state = NodePath(".")
+animation_name = "death"
+move_speed = 0.0

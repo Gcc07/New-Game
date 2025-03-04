@@ -1,3 +1,4 @@
+class_name PlayerNoneState
 extends ActionState
 
 # The State for when an Entity has no current actions.
@@ -12,7 +13,6 @@ var special_attack_state : ActionState
 func enter() -> void:
 	actionAnimations.active = false
 	moveAnimations.active = true
-	print("in none")
 
 func process_input(event: InputEvent) -> ActionState:
 	if get_special_attack_input():
