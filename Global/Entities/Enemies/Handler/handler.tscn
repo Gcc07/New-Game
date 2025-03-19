@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cqxlfhln76dxm"]
+[gd_scene load_steps=42 format=3 uid="uid://cqxlfhln76dxm"]
 
 [ext_resource type="Script" uid="uid://bkg1iossc3cto" path="res://Global/Entities/Enemies/Handler/handler.gd" id="1_5xbvj"]
 [ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="2_7necc"]
@@ -20,6 +20,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_etp55"]
 radius = 60.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mimb8"]
+radius = 15.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_goudi"]
 a = Vector2(-30, -30)
@@ -229,6 +232,14 @@ collision_mask = 7
 [node name="NoticeShape" type="CollisionShape2D" parent="AttentionBox"]
 shape = SubResource("CircleShape2D_etp55")
 
+[node name="AttackBox" type="Area2D" parent="."]
+position = Vector2(-15, -7)
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+shape = SubResource("CircleShape2D_mimb8")
+
 [node name="JumpBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 7
@@ -238,15 +249,15 @@ shape = SubResource("SegmentShape2D_goudi")
 
 [node name="MoveAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_avsj1"),
-"HandlerMove": SubResource("AnimationLibrary_vy268")
+&"": SubResource("AnimationLibrary_avsj1"),
+&"HandlerMove": SubResource("AnimationLibrary_vy268")
 }
 autoplay = "HandlerMove/idle"
 
 [node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_uvdcp"),
-"HandlerAction": SubResource("AnimationLibrary_04pwl")
+&"": SubResource("AnimationLibrary_uvdcp"),
+&"HandlerAction": SubResource("AnimationLibrary_04pwl")
 }
 
 [node name="HealthLabel" type="Label" parent="."]
@@ -289,8 +300,9 @@ script = ExtResource("3_w41fc")
 attention_box = NodePath("../AttentionBox")
 jump_box = NodePath("../JumpBox")
 
-[node name="EnemyActionComponent" type="Node" parent="."]
+[node name="EnemyActionComponent" type="Node" parent="." node_paths=PackedStringArray("attack_box")]
 script = ExtResource("6_on4lv")
+attack_box = NodePath("../AttackBox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -20)

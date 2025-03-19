@@ -1,12 +1,8 @@
 class_name EnemyLightAttackState
-extends ActionState
+extends AttackState
 
 @export
 var none_state : ActionState
-
-@onready var finished_attack : bool = false
-
-var projectile : PackedScene = preload("uid://be3mpsirj8rwt")
 
 func enter() -> void:
 	finished_attack = false
@@ -39,11 +35,11 @@ func spawn_corresponding_projectile():
 		if spawned_projectile.stick_to_parent == true: # If the projectile is a slash or similarly behaving
 			##parent.attack_point.global_position = Vector2(0,0)
 
-			if sprite.flip_h == false: # IF FACING RIGHT
+			if sprite.flip_h == false: # IF THE ENTITY IS FACING RIGHT
 				# spawned_projectile.sprite.flip_h = true # Flip projectile.
 				spawned_projectile.parent_offset = Vector2(-15,0)
 				spawned_projectile.scale.x = 1
-			else: #                      IF FACING LEFT
+			else: #                      IF THE ENTITY IS FACING LEFT
 				# spawned_projectile.sprite.flip_h = false # Don't flip projectile.
 				spawned_projectile.parent_offset = Vector2(+15,0)
 				spawned_projectile.scale.x = -1

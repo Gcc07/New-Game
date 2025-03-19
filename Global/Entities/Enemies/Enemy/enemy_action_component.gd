@@ -1,12 +1,10 @@
 class_name EnemyActionComponent
 extends Node
 
+@export var attack_box : Area2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _ready():
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	attack_box.connect("body_entered", Callable(self, "_on_attack_box_body_entered"))
+	attack_box.connect("body_exited", Callable(self, "_on_attack_box_body_entered"))
+	

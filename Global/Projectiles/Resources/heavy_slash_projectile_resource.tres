@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ProjectileResource" load_steps=2 format=3 uid="uid://cpi4fe1j2ej4a"]
+
+[ext_resource type="Script" uid="uid://ch13tt26l8qwb" path="res://Global/Projectiles/Resources/projectile_resource.gd" id="1_y1j4r"]
+
+[resource]
+script = ExtResource("1_y1j4r")
+ID = "Slash"
+stick_to_parent = true
+is_friendly = true
+speed = 0.0
+damage = 3.0
+max_pierce = 1
+time_to_live = 0.1
+collision_size_equals_sprite = true
+hurtbox_size_equals_sprite = true
+sprite_texture = "uid://ci5ekwenhgfwy"
+num_of_frames = 1
+animation_is_continous = false
+has_animation = false
+parent_offset = Vector2(-15, -18)
+metadata/_custom_type_script = "uid://ch13tt26l8qwb"

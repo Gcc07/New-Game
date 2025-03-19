@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cly0gxqkuoiej"]
+[gd_scene load_steps=26 format=3 uid="uid://cly0gxqkuoiej"]
 
 [ext_resource type="Script" uid="uid://dk4dgxmfagupv" path="res://Global/Entities/Player/player.gd" id="1_kty55"]
 [ext_resource type="Texture2D" uid="uid://b1ni4ev2i4io8" path="res://Assets/Art/RenjiRun-Sheet.png" id="2_i1k8r"]
@@ -21,9 +21,7 @@
 [ext_resource type="Resource" uid="uid://ty7lccs3t5lg" path="res://Global/Projectiles/Resources/slash_projectile_resource.tres" id="18_2wpic"]
 [ext_resource type="PackedScene" uid="uid://jmnf0fy8c8di" path="res://Global/Components/hitbox.tscn" id="18_3h6te"]
 [ext_resource type="Script" uid="uid://bmyoc3fhdw7ex" path="res://Global/Entities/Player/PlayerStates/Attacks/special_attack.gd" id="19_5hv5l"]
-[ext_resource type="Resource" uid="uid://cpi4fe1j2ej4a" path="res://Global/Projectiles/Resources/heavy_slash_projectile_resource.tres" id="20_quk2k"]
 [ext_resource type="Script" uid="uid://y4rs71ay7bna" path="res://Global/Entities/PublicStates/Action/death.gd" id="21_5fg26"]
-[ext_resource type="Resource" uid="uid://cxf07rhee62gt" path="res://Global/Projectiles/Resources/energy_blast_projectile_resource.tres" id="22_6ctnb"]
 
 [sub_resource type="Animation" id="Animation_hd8eq"]
 length = 0.001
@@ -135,26 +133,21 @@ animation_name = "jump"
 [node name="ActionStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("11_8c3ms")]
 starting_state = NodePath("none")
 
-[node name="light" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state")]
+[node name="light" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state")]
 script = ExtResource("11_uflhd")
 none_state = NodePath("../none")
 attack_projectile_resource = ExtResource("18_2wpic")
-death_state = NodePath("../death")
 animation_name = "light_attack"
 priority = 1
 
-[node name="heavy" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state")]
+[node name="heavy" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state")]
 script = ExtResource("15_kk5jy")
 none_state = NodePath("../none")
-attack_projectile_resource = ExtResource("20_quk2k")
-death_state = NodePath("../death")
 animation_name = "heavy_attack"
 
-[node name="special" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state")]
+[node name="special" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state")]
 script = ExtResource("19_5hv5l")
 none_state = NodePath("../none")
-attack_projectile_resource = ExtResource("22_6ctnb")
-death_state = NodePath("../death")
 animation_name = "special_attack"
 
 [node name="none" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("light_attack_state", "heavy_attack_state", "special_attack_state", "death_state")]

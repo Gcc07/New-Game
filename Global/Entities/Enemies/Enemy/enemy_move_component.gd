@@ -19,22 +19,22 @@ func _ready():
 	jump_box.connect("body_exited", Callable(self, "_on_jump_line_body_entered"))
 	
 	attention_box.get_child(0).shape.radius = get_parent().AI_notice_radius
+	
 func _on_notice_box_body_entered(body):
 	if body is Player:
 		print("Player has entered.")
-		print(get_parent().AI_pursue_radius)
 		attention_box.get_child(0).shape.radius = get_parent().AI_pursue_radius
 		is_player_in_area = true
 		target = body
 
 func _on_notice_box_body_exited(body):
 	if body is Player:
-		var tween = create_tween()
+		# var tween = create_tween()
 		print("Player has exited.")
-		print(get_parent().AI_notice_radius)
 		is_player_in_area = false
 		target = null
-		tween.tween_property(attention_box.get_child(0).shape, "radius", get_parent().AI_notice_radius, .5)
+		#tween.tween_property(attention_box.get_child(0).shape, "radius", get_parent().AI_notice_radius, .5) This changes the notice box back to the original through a tween.
+		attention_box.get_child(0).shape.radius = get_parent().AI_notice_radius
 
 
 func _on_jump_line_body_entered(body):
@@ -58,7 +58,6 @@ func get_movement_direction() -> float:
 		velocity_x = 0
 		# print(velocity_x, get_parent().name)
 		return velocity_x
-	return 0
 	
 	# Return a boolean indicating if the enemy wants to jump
 func wants_jump(y_o_n := false) -> bool:

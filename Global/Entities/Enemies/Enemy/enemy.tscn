@@ -89,13 +89,13 @@ position = Vector2(0, -10)
 
 [node name="MoveAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_avsj1"),
-"EnemyMove": ExtResource("2_do23a")
+&"": SubResource("AnimationLibrary_avsj1"),
+&"EnemyMove": ExtResource("2_do23a")
 }
 
 [node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"EnemyAction": ExtResource("3_uyegr")
+&"EnemyAction": ExtResource("3_uyegr")
 }
 
 [node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("hitbox")]

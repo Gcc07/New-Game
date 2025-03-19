@@ -14,7 +14,7 @@ func _ready() -> void:
 func on_area_entered(area: Area2D):
 	if area is Hitbox:
 		var attack := Attack.new()
-		attack.damage = projectile.damage
+		attack.damage = projectile.projectile_resource.damage
 		area.damage(attack)
 		print("Projectile has hit the target:" + area.get_parent().name)
 		hit_target.emit()
