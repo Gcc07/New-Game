@@ -62,3 +62,4 @@ func get_movement_direction() -> float:
 	# Return a boolean indicating if the enemy wants to jump
 func wants_jump(y_o_n := false) -> bool:
 	return y_o_n
+	

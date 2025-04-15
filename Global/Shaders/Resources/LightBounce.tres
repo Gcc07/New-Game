@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://0oxojnpw0xbo"]
+
+[ext_resource type="Shader" uid="uid://jtuklmpsq5kf" path="res://Global/Shaders/sparkle.gdshader" id="1_m8gbn"]
+
+[resource]
+shader = ExtResource("1_m8gbn")
+shader_parameter/color = Color(0.952941, 0.945098, 0.894118, 1)
+shader_parameter/alpha = 2.0
+shader_parameter/shney_disperse = 3.417
+shader_parameter/shney_speed = 193.548
+shader_parameter/twist_speed = -1.065
+shader_parameter/rota_speed = 1.0
+shader_parameter/curve_ci = 0.14

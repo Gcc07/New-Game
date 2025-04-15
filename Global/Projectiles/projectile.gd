@@ -13,9 +13,17 @@ extends CharacterBody2D
 ## The resource containing all information about a projectile's data.
 @export var projectile_resource : ProjectileResource
 
+var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
+var pierces_left : int
+
 func _ready() -> void:
-	set_collision_size_equals_sprite(projectile_resource.collision_size_equals_sprite)
-	set_hurtbox_size_equals_sprite(projectile_resource.hurtbox_size_equals_sprite)
+
+	initialize_data()
+	initialize_color_modulation(projectile_resource.modulate_color)
+	init_scale(projectile_resource.scale_factor.x, projectile_resource.scale_factor.y)
+	initialize_collision_and_hurtbox_shapes(projectile_resource.collision_shape, projectile_resource.hurtbox_shape)
+	set_collision_size_equals_sprite(projectile_resource.collision_size_corresponds_to_sprite)
+	set_hurtbox_size_equals_sprite(projectile_resource.hurtbox_size_corresponds_to_sprite)
 	set_attack_sprite(projectile_resource.sprite_texture)
 	initialize_projectile_frames(projectile_resource.num_of_frames)
 	initialize_is_friendly(projectile_resource.is_friendly)
@@ -29,22 +37,52 @@ func _process(delta: float) -> void:
 
 var current_pierce_count := 0
 
+func initialize_color_modulation(color):
+	if not color == Color(255,255,255,255):
+		sprite.modulate = color
+
 func initialize_is_friendly(friendly):
 	if friendly:
-		hurtbox.collision_mask = 2
+		hurtbox.collision_mask = 2 # if friendly, set the collision mask to enemies
 	else:
-		hurtbox.collision_max = 1
+		hurtbox.collision_mask = 1 # if not, set the collision mask to player
 
 func initialize_projectile_frames(num_of_frames):
 	sprite.vframes = num_of_frames
 
+func initialize_collision_and_hurtbox_shapes(collision, hurtbox):
+	collision_shape.shape = projectile_resource.collision_shape
+	hurtbox_shape.shape = projectile_resource.hurtbox_shape
+
 func set_collision_size_equals_sprite(on: bool) -> void:
+	var actual_sprite_height = load(projectile_resource.sprite_texture).get_height() / (projectile_resource.num_of_frames) # Returns height (accounting for animated sprite frames)
+	var actual_sprite_width = (load(projectile_resource.sprite_texture).get_width())
 	if on:
-		collision_shape.shape.set_size( Vector2( load(projectile_resource.sprite_texture).get_width() , load(projectile_resource.sprite_texture).get_height() / projectile_resource.num_of_frames ) )
+		if collision_shape.shape.is_class("CapsuleShape2D"):
+			#collision_shape.shape.set_radius(load(projectile_resource.sprite_texture).get_height()/2)
+			collision_shape.shape.set_radius(actual_sprite_height/2)
+			collision_shape.shape.set_height(actual_sprite_width)
+			if projectile_resource.rotate_collision_shape > 0 or projectile_resource.rotate_collision_shape < 0:
+				collision_shape.rotate(projectile_resource.rotate_collision_shape)
+		if collision_shape.shape.is_class("CircleShape2D"):
+			collision_shape.shape.set_radius(actual_sprite_width/2)
+		if collision_shape.shape.is_class("RectangleShape2D"):
+			collision_shape.shape.set_size(Vector2(actual_sprite_width, actual_sprite_height))
 
 func set_hurtbox_size_equals_sprite(on: bool) -> void:
+	var actual_sprite_height = load(projectile_resource.sprite_texture).get_height() / (projectile_resource.num_of_frames) # Returns height (accounting for animated sprite frames)
+	var actual_sprite_width = load(projectile_resource.sprite_texture).get_width()
 	if on:
-		hurtbox_shape.shape.set_size( Vector2( load(projectile_resource.sprite_texture).get_width() , load(projectile_resource.sprite_texture).get_height() / projectile_resource.num_of_frames ) )
+		if hurtbox_shape.shape.is_class("CapsuleShape2D"):
+			#collision_shape.shape.set_radius(load(projectile_resource.sprite_texture).get_height()/2)
+			hurtbox_shape.shape.set_radius(actual_sprite_height/2)
+			hurtbox_shape.shape.set_height(actual_sprite_width)
+			if projectile_resource.rotate_collision_shape > 0 or projectile_resource.rotate_collision_shape < 0:
+				hurtbox_shape.rotate(projectile_resource.rotate_collision_shape * PI)
+		if hurtbox_shape.shape.is_class("CircleShape2D"):
+			hurtbox_shape.shape.set_radius(actual_sprite_width/2)
+		if hurtbox_shape.shape.is_class("RectangleShape2D"):
+			hurtbox_shape.shape.set_size(Vector2(actual_sprite_width, actual_sprite_height))
 
 func set_attack_sprite(texture: String) -> void:
 	sprite.texture = load(texture)
@@ -55,6 +93,8 @@ func set_attack_sprite(texture: String) -> void:
 # well as the projectile time_to_live variable to create intervals where the sprite
 # frame will index itself + 1. This system does not support complex animation,
 # And it is also (probably) vulnerable to timing issues with different computers.
+
+# 4/1/25 Gabe here. Yeah, it's a little scuffed, could get revamped fo sho.
 
 func control_projectile_animations(active: bool, continous: bool):
 
@@ -79,6 +119,61 @@ func control_projectile_animations(active: bool, continous: bool):
 	else:
 		pass
 
+# Projectile physics. This controls the rotation, movement, and more of the projectile.
+# Okay system right now? It could probably be better. It just checks for if the projectile
+# Wants certain logic, but this could restrict the logic to a few choices in the future. Maybe
+# Revamp.
+func _physics_process(delta: float) -> void:
+	var is_colliding_with_ground : bool = false
+	do_rotation(delta)
+	init_scale(projectile_resource.scale_factor.x, projectile_resource.scale_factor.y)
+	print(is_colliding_with_ground)
+	if projectile_resource.speed > 0 && not is_colliding_with_ground:
+		if self.scale.x == float(1):
+			if projectile_resource.acceleration != 0:
+				self.velocity.x = lerp(self.velocity.x, -projectile_resource.speed, delta * projectile_resource.acceleration)
+			else:
+				self.velocity.x =  projectile_resource.speed * -1
+
+			#self.velocity.x = projectile_resource.speed * -1
+		elif self.scale.x == float(-1):
+			if projectile_resource.acceleration != 0:
+				self.velocity.x = lerp(self.velocity.x, projectile_resource.speed, delta * projectile_resource.acceleration)
+			else:
+				self.velocity.x =  projectile_resource.speed * 1
+	else:
+		self.velocity.x = 0
+
+	if projectile_resource.affected_by_gravity:
+		self.velocity.y += gravity * delta
+	if projectile_resource.affected_by_gravity or projectile_resource.speed > 0:
+		move_and_slide()
+		for i in get_slide_collision_count():
+			var collision = get_slide_collision(i)
+			print("Collided with: ", collision.get_collider().name)
+			if collision.get_collider().name == "TileMapLayer":
+				is_colliding_with_ground = true
+				self.velocity.x -= self.velocity.x * .5
+				self.velocity.x = lerp(self.velocity.x, 0.0, 1)
+				destroy_projectile(3)
+			else: 
+				is_colliding_with_ground = false
+
+func do_rotation(delta: float):
+	if projectile_resource.spin_speed > 0: 
+		if self.scale.x == float(1) or self.scale.x > 0.0:
+			sprite.rotation += (-projectile_resource.spin_speed * delta)
+		elif self.scale.x == float(-1) or self.scale.x < 0.0:
+			sprite.rotation += (projectile_resource.spin_speed * delta)
+	else:
+		sprite.rotation = 0
+
+func init_scale(incoming_scale_x, incoming_scale_y):
+	self.scale.x = incoming_scale_x
+	self.scale.y = incoming_scale_y
+
+func initialize_data():
+	pierces_left = projectile_resource.max_pierce
 
 func _on_timer_timeout() -> void:
 	queue_free()
@@ -88,5 +183,16 @@ func start_timer() -> void:
 	timer.start()
 
 func on_target_hit() -> void:
-	pass
-	
+	if pierces_left != 1:
+		pierces_left -= 1
+	elif pierces_left == 1:
+		destroy_projectile(0)
+
+func destroy_projectile(delay: float):
+	var destroy_timer = Timer.new() 
+	add_child(destroy_timer)
+	destroy_timer.start(delay)
+	destroy_timer.timeout.connect(_destroy_timer_timout)
+
+func _destroy_timer_timout():
+	queue_free()

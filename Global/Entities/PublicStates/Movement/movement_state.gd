@@ -3,6 +3,8 @@ extends State
 
 var move_component
 
+@export var move_speed: float = 150
+
 func enter() -> void:
 	moveAnimations.play(str(parent.name)+"Move/" + animation_name)
 

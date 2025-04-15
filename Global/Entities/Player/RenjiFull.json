@@ -1,0 +1,24 @@
+{ "frames": [
+   {
+    "filename": "RenjiFull.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 437, "h": 512 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 437, "h": 512 },
+    "sourceSize": { "w": 437, "h": 512 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.27-dev",
+  "image": "RenjiFull.png",
+  "format": "RGBA8888",
+  "size": { "w": 437, "h": 512 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "slices": [
+  ]
+ }
+}

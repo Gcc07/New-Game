@@ -22,6 +22,8 @@ func on_damaged(attack: Attack):
 	if !thing_being_attacked.alive:
 		return
 	
+	if !thing_being_attacked.can_be_damaged:
+		return
 	health -= attack.damage
 	health_changed.emit(health)
 	

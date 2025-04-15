@@ -25,7 +25,8 @@ func process_physics(delta: float) -> MovementState:
 	var movement = get_movement_input() * move_speed
 	if movement == 0:
 		return idle_state
-	
+	if parent.can_move == false:
+		return idle_state
 	sprite.flip_h = movement > 0
 	parent.velocity.x = movement
 	parent.move_and_slide()

@@ -18,4 +18,3 @@ func on_area_entered(area: Area2D):
 		area.damage(attack)
 		print("Projectile has hit the target:" + area.get_parent().name)
 		hit_target.emit()
-		

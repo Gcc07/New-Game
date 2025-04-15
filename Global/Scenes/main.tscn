@@ -12,19 +12,19 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_155du"]
 texture = ExtResource("1_3ptaa")
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.179859, -8, 0.179859)
 1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.179859, -8, 0.179859)
 2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.179859, -8, 0.179859)
 3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.179859, -8, 0.179859)
 4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.179859, -8, 0.179859)
 5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.179859, -8, 0.179859)
 6:0/0 = 0
-6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.179859, -8, 0.179859)
 
 [sub_resource type="TileSet" id="TileSet_vj60j"]
 physics_layer_0/collision_layer = 1
@@ -65,7 +65,7 @@ shader = ExtResource("8_6f08s")
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAABAAAAAAAAAAAAABABAAAAABAAAAAAACABAAAAABAAAAAAADABAAAAABAAAAAAAEABAAAAABAAAAAAAFABAAAAABAAAAAAAGABAAAAABAAAAAAAHABAAAAABAAAAAAAIABAAAAABAAAAAAAJABAAAAABAAAAAAAKABAAAAABAAAAAAALABAAAAABAAAAAAAMABAAAAABAAAAAAANABAAAAABAAAAAAAOABAAAAABAAAAAAAPABAAAAABAAAAAAAQABAAAAABAAAAAAARABAAAAABAAAAAAASABAAAAABAAAAAAATABAAAAABAAAAAAAUABAAAAABAAAAAAAVABAAAAABAAAAAAAWABAAAAABAAAAAAAXABAAAAABAAAAAAAYABAAAAABAAAAAAAZABAAAAAFAAAAAAAaABAAAAAFAAAAAAAbABAAAAAFAAAAAAAcABAAAAAFAAAAAAAdABAAAAAGAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAABAAAAAAAAAAAAABABAAAAABAAAAAAACABAAAAABAAAAAAADABAAAAABAAAAAAAEABAAAAABAAAAAAAFABAAAAABAAAAAAAGABAAAAABAAAAAAAHABAAAAABAAAAAAAIABAAAAABAAAAAAAJABAAAAABAAAAAAAKABAAAAABAAAAAAALABAAAAABAAAAAAAMABAAAAABAAAAAAANABAAAAABAAAAAAAOABAAAAABAAAAAAAPABAAAAABAAAAAAAQABAAAAABAAAAAAARABAAAAABAAAAAAASABAAAAABAAAAAAATABAAAAABAAAAAAAUABAAAAABAAAAAAAVABAAAAABAAAAAAAWABAAAAABAAAAAAAXABAAAAABAAAAAAAYABAAAAABAAAAAAAZABAAAAAFAAAAAAAaABAAAAAFAAAAAAAbABAAAAAFAAAAAAAcABAAAAAFAAAAAAAdABAAAAAGAAAAAAAXAA0AAAADAAAAAAAYAA0AAAADAAAAAAAZAAsAAAABAAAAAAAaAAsAAAABAAAAAAAbAA4AAAABAAAAAAAcAAkAAAABAAAAAAAYAAgAAAABAAAAAAAVAAYAAAABAAAAAAASAAQAAAABAAAAAAA=")
 tile_set = SubResource("TileSet_vj60j")
 
 [node name="Player" parent="." instance=ExtResource("2_w0ego")]
@@ -94,8 +94,10 @@ texture = SubResource("NoiseTexture2D_7ewiv")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1280.0
-offset_bottom = 720.0
+offset_left = 768.0
+offset_top = -19.0
+offset_right = 2048.0
+offset_bottom = 701.0
 mouse_filter = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Control"]

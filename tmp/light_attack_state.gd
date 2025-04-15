@@ -1,18 +1,22 @@
-class_name PlayerLightAttackState
+class_name LightAttackState
 extends AttackState
 
-@export var none_state : ActionState
+#@export
+#var none_state : ActionState
 
 func enter() -> void:
+	parent.can_move = true
 	finished_attack = false
 	moveAnimations.active = false
 	actionAnimations.active = true
-	actionAnimations.play("PlayerAction/" + animation_name)
+	actionAnimations.play(str(parent.name)+"Action/" + animation_name)
 
 func exit() -> void:
 	actionAnimations.active = false
 
 func process_physics(delta: float) -> ActionState:
+	if not parent.alive:
+		return death_state
 	if finished_attack:
 		return none_state
 	else:
