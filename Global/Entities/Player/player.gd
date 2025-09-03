@@ -62,15 +62,6 @@ func on_damaged(attack: Attack) -> void:
 	print("Going through: Enemy")
 	damaged.emit(attack)
 
-#func const_wobble():
-	#if self.velocity.x <= 80 and self.velocity.x >= -80:
-		#player_sprite.rotation = 0
-	#elif self.velocity.x >=  100 and player_sprite.rotation < .06:
-		#player_sprite.rotation += .01 
-	#elif self.velocity.x <= -100 and player_sprite.rotation > -.06:
-		#player_sprite.rotation -= .01
-
-
 func _on_damaged(attack: Attack) -> void:
 	pass # Replace with function body.
 
@@ -81,3 +72,11 @@ func _on_health_changed(health: float) -> void:
 
 func on_health_changed(health: float) -> void:
 	pass # Replace with function body.
+
+#func const_wobble():
+	#if self.velocity.x <= 80 and self.velocity.x >= -80:
+		#player_sprite.rotation = 0
+	#elif self.velocity.x >=  100 and player_sprite.rotation < .06:
+		#player_sprite.rotation += .01 
+	#elif self.velocity.x <= -100 and player_sprite.rotation > -.06:
+		#player_sprite.rotation -= .01

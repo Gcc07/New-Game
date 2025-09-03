@@ -1,12 +1,12 @@
 { "frames": [
    {
-    "filename": "RenjiFull.aseprite",
-    "frame": { "x": 0, "y": 0, "w": 437, "h": 512 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 437, "h": 512 },
-    "sourceSize": { "w": 437, "h": 512 },
-    "duration": 100
+	"filename": "RenjiFull.aseprite",
+	"frame": { "x": 0, "y": 0, "w": 437, "h": 512 },
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": { "x": 0, "y": 0, "w": 437, "h": 512 },
+	"sourceSize": { "w": 437, "h": 512 },
+	"duration": 100
    }
  ],
  "meta": {

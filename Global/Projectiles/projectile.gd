@@ -13,8 +13,9 @@ extends CharacterBody2D
 ## The resource containing all information about a projectile's data.
 @export var projectile_resource : ProjectileResource
 
-var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
-var pierces_left : int
+@onready var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var pierces_left : int
+@onready var applied_initial_velocity = false
 
 func _ready() -> void:
 
@@ -123,41 +124,55 @@ func control_projectile_animations(active: bool, continous: bool):
 # Okay system right now? It could probably be better. It just checks for if the projectile
 # Wants certain logic, but this could restrict the logic to a few choices in the future. Maybe
 # Revamp.
+
 func _physics_process(delta: float) -> void:
-	var is_colliding_with_ground : bool = false
 	do_rotation(delta)
 	init_scale(projectile_resource.scale_factor.x, projectile_resource.scale_factor.y)
-	print(is_colliding_with_ground)
-	if projectile_resource.speed > 0 && not is_colliding_with_ground:
-		if self.scale.x == float(1):
-			if projectile_resource.acceleration != 0:
-				self.velocity.x = lerp(self.velocity.x, -projectile_resource.speed, delta * projectile_resource.acceleration)
-			else:
-				self.velocity.x =  projectile_resource.speed * -1
+	
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().name == "TileMapLayer":
+			destroy_projectile()
 
-			#self.velocity.x = projectile_resource.speed * -1
+	
+	if !applied_initial_velocity:
+		self.velocity.y = -300
+		applied_initial_velocity = true
+	
+	if projectile_resource.speed > 0 && not self.is_on_floor(): # If the projectile is meant to move, and the projectile is airborne
+		if self.scale.x == float(1): # If the projectile is facing right
+			if projectile_resource.acceleration != 0: # If the projectile acceleration is not equal to zero (if the projectile is meant to accelerate)
+				self.velocity.x = lerp(self.velocity.x, -projectile_resource.speed, delta * projectile_resource.acceleration)
+			else: # If no acceleration, apply static x velocity.
+				self.velocity.x =  projectile_resource.speed * -1
+				#print("applying velocity: ", self.velocity.x)
 		elif self.scale.x == float(-1):
 			if projectile_resource.acceleration != 0:
 				self.velocity.x = lerp(self.velocity.x, projectile_resource.speed, delta * projectile_resource.acceleration)
 			else:
+				#print("applying velocity: ", self.velocity.x)
 				self.velocity.x =  projectile_resource.speed * 1
 	else:
-		self.velocity.x = 0
+		pass
+		#self.velocity.x = 0
 
 	if projectile_resource.affected_by_gravity:
 		self.velocity.y += gravity * delta
 	if projectile_resource.affected_by_gravity or projectile_resource.speed > 0:
 		move_and_slide()
-		for i in get_slide_collision_count():
-			var collision = get_slide_collision(i)
-			print("Collided with: ", collision.get_collider().name)
-			if collision.get_collider().name == "TileMapLayer":
-				is_colliding_with_ground = true
-				self.velocity.x -= self.velocity.x * .5
-				self.velocity.x = lerp(self.velocity.x, 0.0, 1)
-				destroy_projectile(3)
-			else: 
-				is_colliding_with_ground = false
+		if self.is_on_floor():
+			self.velocity.x = lerp(self.velocity.x, 0.0, 3*delta)
+			
+		#for i in get_slide_collision_count():
+			#var collision = get_slide_collision(i)
+			#print("Collided with: ", collision.get_collider().name)
+			#if collision.get_collider().name == "TileMapLayer":
+				#is_colliding_with_ground = true
+				#
+				# self.velocity.x = lerp(self.velocity.x, 0.0, 1)
+				#destroy_projectile(3)
+			#else: 
+				#is_colliding_with_ground = false
 
 func do_rotation(delta: float):
 	if projectile_resource.spin_speed > 0: 
@@ -188,11 +203,15 @@ func on_target_hit() -> void:
 	elif pierces_left == 1:
 		destroy_projectile(0)
 
-func destroy_projectile(delay: float):
-	var destroy_timer = Timer.new() 
-	add_child(destroy_timer)
-	destroy_timer.start(delay)
-	destroy_timer.timeout.connect(_destroy_timer_timout)
+func destroy_projectile(delay: float = 0):
+	if delay == 0:
+		queue_free()
+	else:
+		var destroy_timer = Timer.new() 
+		add_child(destroy_timer)
+		destroy_timer.start(delay)
+		destroy_timer.timeout.connect(_destroy_timer_timout)
+	
 
 func _destroy_timer_timout():
 	queue_free()

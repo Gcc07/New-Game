@@ -5,9 +5,9 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y6bbh"]
 
-[node name="Projectile" type="CharacterBody2D" node_paths=PackedStringArray("hurtbox", "timer", "sprite", "collision_shape", "hurtbox_shape")]
+[node name="Projectile" type="CharacterBody2D" node_paths=PackedStringArray("hurtbox", "timer", "sprite", "collision_shape", "hurtbox_shape") groups=["projectile"]]
 collision_layer = 0
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_x0qej")
 hurtbox = NodePath("ProjectileHurtbox")
 timer = NodePath("Timer")

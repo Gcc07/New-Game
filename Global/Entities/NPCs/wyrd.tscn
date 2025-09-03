@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7ibdequcmxh4"]
+
+[ext_resource type="Script" uid="uid://2k7a4wf13lj" path="res://Utilities/Classes/entity.gd" id="1_x3ygd"]
+[ext_resource type="PackedScene" uid="uid://jmnf0fy8c8di" path="res://Global/Components/hitbox.tscn" id="2_7rwky"]
+[ext_resource type="Texture2D" uid="uid://c2feqr35ca5m0" path="res://Assets/Art/K2 Idle-Sheet.png" id="3_7rwky"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rwky"]
+radius = 7.0
+height = 14.0
+
+[sub_resource type="Animation" id="Animation_hd8eq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -20)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_asgkc"]
+_data = {
+&"RESET": SubResource("Animation_hd8eq")
+}
+
+[node name="Wyrd" type="CharacterBody2D" groups=["npc"]]
+script = ExtResource("1_x3ygd")
+hostile = false
+can_be_damaged = false
+metadata/_custom_type_script = "uid://2k7a4wf13lj"
+
+[node name="Hitbox" parent="." instance=ExtResource("2_7rwky")]
+position = Vector2(0, -10)
+collision_layer = 2
+collision_mask = 5
+player_or_npc = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("3_7rwky")
+hframes = 51
+
+[node name="GroundCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_7rwky")
+
+[node name="MoveAnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_asgkc")
+}
+autoplay = "idle"

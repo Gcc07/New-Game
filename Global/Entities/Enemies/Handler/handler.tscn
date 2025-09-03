@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bkg1iossc3cto" path="res://Global/Entities/Enemies/Handler/handler.gd" id="1_5xbvj"]
 [ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="2_7necc"]
 [ext_resource type="Script" uid="uid://cql8acbpetak4" path="res://Global/Entities/Enemies/Enemy/UniqueComponents/enemy_move_component.gd" id="3_w41fc"]
-[ext_resource type="Texture2D" uid="uid://dsb6tv6epn1mh" path="res://Assets/Art/Handler-sheet.png" id="4_gp4px"]
+[ext_resource type="Texture2D" uid="uid://dsb6tv6epn1mh" path="res://Assets/Art/Characters/Handler-sheet.png" id="4_gp4px"]
 [ext_resource type="Script" uid="uid://h2y7udv1fy6s" path="res://Global/Entities/Enemies/Handler/UniqueComponents/handler_enemy_action_component.gd" id="4_o053h"]
 [ext_resource type="PackedScene" uid="uid://jmnf0fy8c8di" path="res://Global/Components/hitbox.tscn" id="5_obfdl"]
 [ext_resource type="PackedScene" uid="uid://07qnueve2in3" path="res://Global/Entities/StateMachines/action_state_machine.tscn" id="6_4i0jk"]
@@ -278,7 +278,7 @@ height = 6
 radius = 7.0
 height = 14.0
 
-[node name="Handler" type="CharacterBody2D"]
+[node name="Handler" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_5xbvj")

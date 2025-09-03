@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://c5hvh64y4o77c"]
+[gd_scene load_steps=19 format=4 uid="uid://c5hvh64y4o77c"]
 
 [ext_resource type="Texture2D" uid="uid://cuip4hetwmctt" path="res://Assets/Art/TMAP.png" id="1_3ptaa"]
 [ext_resource type="PackedScene" uid="uid://cly0gxqkuoiej" path="res://Global/Entities/Player/player.tscn" id="2_w0ego"]
@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://dfqms2oor14rt" path="res://White Burning.tres" id="6_tkgxt"]
 [ext_resource type="Script" uid="uid://dv53vfm7dn6p3" path="res://Global/Scenes/fps.gd" id="7_jbbcs"]
 [ext_resource type="Shader" uid="uid://bj4qqcw03j4qq" path="res://Global/Shaders/main.gdshader" id="8_6f08s"]
+[ext_resource type="PackedScene" uid="uid://c7ibdequcmxh4" path="res://Global/Entities/NPCs/wyrd.tscn" id="9_jbbcs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_155du"]
 texture = ExtResource("1_3ptaa")
@@ -135,3 +136,6 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Wyrd" parent="." instance=ExtResource("9_jbbcs")]
+position = Vector2(72, 248)

@@ -26,6 +26,8 @@ extends Resource
 @export var collision_size_corresponds_to_sprite := true 
 ## Determines if the hurtbox size will be the size of the sprite or not
 @export var hurtbox_size_corresponds_to_sprite := true 
+## Determines if the projectile breaks upon collision with another object
+@export var breaks_on_collision := false
 ## Determines the sprite texture of the projectilea
 @export var sprite_texture := "uid://cca0o8n8lhrcp"
 ## Determines the number of animation frames in the projectile
