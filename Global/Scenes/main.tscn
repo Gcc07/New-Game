@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://c5hvh64y4o77c"]
+[gd_scene load_steps=20 format=4 uid="uid://c5hvh64y4o77c"]
 
 [ext_resource type="Texture2D" uid="uid://cuip4hetwmctt" path="res://Assets/Art/TMAP.png" id="1_3ptaa"]
 [ext_resource type="PackedScene" uid="uid://cly0gxqkuoiej" path="res://Global/Entities/Player/player.tscn" id="2_w0ego"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dv53vfm7dn6p3" path="res://Global/Scenes/fps.gd" id="7_jbbcs"]
 [ext_resource type="Shader" uid="uid://bj4qqcw03j4qq" path="res://Global/Shaders/main.gdshader" id="8_6f08s"]
 [ext_resource type="PackedScene" uid="uid://c7ibdequcmxh4" path="res://Global/Entities/NPCs/wyrd.tscn" id="9_jbbcs"]
+[ext_resource type="Script" uid="uid://c7vi47ybajeqd" path="res://Global/Entities/Player/player_camera.gd" id="10_8n0gi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_155du"]
 texture = ExtResource("1_3ptaa")
@@ -63,14 +64,14 @@ font = SubResource("SystemFont_jbbcs")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jbbcs"]
 shader = ExtResource("8_6f08s")
 
-[node name="Node2D" type="Node2D"]
+[node name="Game" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAAABAAAAAAAAAAAAABABAAAAABAAAAAAACABAAAAABAAAAAAADABAAAAABAAAAAAAEABAAAAABAAAAAAAFABAAAAABAAAAAAAGABAAAAABAAAAAAAHABAAAAABAAAAAAAIABAAAAABAAAAAAAJABAAAAABAAAAAAAKABAAAAABAAAAAAALABAAAAABAAAAAAAMABAAAAABAAAAAAANABAAAAABAAAAAAAOABAAAAABAAAAAAAPABAAAAABAAAAAAAQABAAAAABAAAAAAARABAAAAABAAAAAAASABAAAAABAAAAAAATABAAAAABAAAAAAAUABAAAAABAAAAAAAVABAAAAABAAAAAAAWABAAAAABAAAAAAAXABAAAAABAAAAAAAYABAAAAABAAAAAAAZABAAAAAFAAAAAAAaABAAAAAFAAAAAAAbABAAAAAFAAAAAAAcABAAAAAFAAAAAAAdABAAAAAGAAAAAAAXAA0AAAADAAAAAAAYAA0AAAADAAAAAAAZAAsAAAABAAAAAAAaAAsAAAABAAAAAAAbAA4AAAABAAAAAAAcAAkAAAABAAAAAAAYAAgAAAABAAAAAAAVAAYAAAABAAAAAAASAAQAAAABAAAAAAA=")
 tile_set = SubResource("TileSet_vj60j")
 
 [node name="Player" parent="." instance=ExtResource("2_w0ego")]
-position = Vector2(233, 194)
+position = Vector2(240, 135)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -86,7 +87,11 @@ centered = false
 [node name="Handler" parent="." instance=ExtResource("5_dknhj")]
 position = Vector2(115, 218)
 
+[node name="Handler2" parent="." instance=ExtResource("5_dknhj")]
+position = Vector2(344, 216)
+
 [node name="GodRays" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_pomkq")
 position = Vector2(258, 170)
 scale = Vector2(0.439697, 0.437256)
@@ -105,8 +110,10 @@ mouse_filter = 1
 layer = -1
 
 [node name="Label" type="Label" parent="Control/CanvasLayer"]
-offset_right = 98.0
-offset_bottom = 45.0
+offset_left = 410.0
+offset_top = 5.0
+offset_right = 434.0
+offset_bottom = 48.0
 text = "fps"
 label_settings = SubResource("LabelSettings_jbbcs")
 script = ExtResource("7_jbbcs")
@@ -139,3 +146,9 @@ grow_vertical = 2
 
 [node name="Wyrd" parent="." instance=ExtResource("9_jbbcs")]
 position = Vector2(72, 248)
+
+[node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position = Vector2(240, 135)
+ignore_rotation = false
+script = ExtResource("10_8n0gi")
+target = NodePath("../Player")

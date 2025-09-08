@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cqxlfhln76dxm"]
+[gd_scene load_steps=43 format=3 uid="uid://cqxlfhln76dxm"]
 
 [ext_resource type="Script" uid="uid://bkg1iossc3cto" path="res://Global/Entities/Enemies/Handler/handler.gd" id="1_5xbvj"]
 [ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="2_7necc"]
@@ -257,22 +257,14 @@ font_color = Color(0.854902, 0.301961, 0.301961, 1)
 outline_size = 1
 outline_color = Color(1, 0, 0, 1)
 
-[sub_resource type="Gradient" id="Gradient_o053h"]
-colors = PackedColorArray(0.205117, 0.205117, 0.205117, 1, 0.203922, 0.203922, 0.203922, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_oola4"]
-gradient = SubResource("Gradient_o053h")
-width = 40
-height = 8
-
 [sub_resource type="Gradient" id="Gradient_d8ri2"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.854902, 0.301961, 0.301961, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rjix3"]
 gradient = SubResource("Gradient_d8ri2")
-width = 36
-height = 6
+width = 28
+height = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pvppk"]
 radius = 7.0
@@ -284,6 +276,7 @@ collision_mask = 5
 script = ExtResource("1_5xbvj")
 AI_notice_radius = 100.0
 AI_pursue_radius = 150.0
+entity_id = "Handler"
 
 [node name="Hitbox" parent="." instance=ExtResource("5_obfdl")]
 position = Vector2(0, -7)
@@ -369,18 +362,17 @@ script = ExtResource("15_p2dqc")
 [node name="TextureProgressBar" type="TextureProgressBar" parent="HealthLabel"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.435
-anchor_right = 0.25
-anchor_bottom = 0.435
-offset_top = -0.00500107
-offset_right = 40.0
-offset_bottom = 9.995
+anchor_left = 0.3
+anchor_top = 0.458
+anchor_right = 0.3
+anchor_bottom = 0.458
+offset_top = -0.992001
+offset_right = 32.0
+offset_bottom = 3.008
 max_value = 10.0
 step = 0.0
 value = 10.0
 rounded = true
-texture_under = SubResource("GradientTexture2D_oola4")
 texture_progress = SubResource("GradientTexture2D_rjix3")
 texture_progress_offset = Vector2(2, 1)
 
@@ -406,7 +398,7 @@ script = ExtResource("11_mw3rt")
 fall_state = NodePath("../fall")
 idle_state = NodePath("../idle")
 jump_state = NodePath("../jump")
-move_speed = 100.0
+move_speed = 50.0
 animation_name = "move"
 
 [node name="idle" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("fall_state", "jump_state", "move_state")]

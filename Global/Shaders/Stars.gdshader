@@ -82,7 +82,7 @@ float map(float v, float v_min, float v_max, float out1, float out2)
 {
     if ( v_max - v_min == 0. )
         return out2;
-        
+
      return (clamp(v,v_min,v_max) - v_min) / (v_max - v_min) * (out2-out1)+out1;
 }
 
@@ -104,25 +104,25 @@ vec4 tunnel_v2(vec2 uv, float black_hole_distance, float cut_factor) {
 
     float distance = 2. / length(uv);
     float angle = angle_diff_grad( map( atan(uv.y, uv.x), -PI,PI,0.,360.), 0. );
-    
+
        if ( distance < black_hole_distance) {
       float normal_distance = map(distance,0.,black_hole_distance,1.,0.);
-       float alpha = 
+       float alpha =
             pow(
            abs( snoise(vec3(angle, map(distance,0.,black_hole_distance,0.,5.) + iTime*1.5, -iTime/4. )))
            ,2.);
-           
+
         if (alpha > cut_factor)
         {
            alpha = map(alpha, cut_factor, 1.,   0., normal_distance * 4.);
            float color = snoise(vec3(uv.x/1.,uv.y/1., normal_distance + iTime/2.));
            vec3 finalColor = hsv2rgb( vec3( color, normal_distance, alpha ));
            //vec3 finalColor = vec3( noise3( vec3(uv.x*10., uv.y*10., distance) ));
-           return vec4( finalColor, 1.0 );           
+           return vec4( finalColor, 1.0 );
          }
         }
-         return vec4(0.,0.,0.,1.0); 
- 
+         return vec4(0.,0.,0.,1.0);
+
 }
 
 
@@ -130,26 +130,26 @@ vec4 tunnel_v3(vec2 uv) {
 
     float far = zoom / length(uv);
     float angle = angle_diff_grad( map( atan(uv.y, uv.x), -PI,PI,0.,360.), sin(iTime/2.)*4. );
-    
+
        if ( far < 25.) {
-      
-       float alpha = 
+
+       float alpha =
             pow(
                abs( snoise(vec3(angle, far +iTime*2.,0.)))
            ,16.);
-           
-        
-        
-           
+
+
+
+
            float color = fmod( iTime / 3.  + far / 25. ,5.);
            float dark  = map(far,0.,25.,1.,0.);
            vec3 finalColor = hsv2rgb( vec3( color, dark, map(alpha,0.,1.,0., 100. * dark ) ));
-           
-           return vec4( finalColor, 1.0 );           
-         
+
+           return vec4( finalColor, 1.0 );
+
         }
-         return vec4(0.,0.,0.,1.0); 
- 
+         return vec4(0.,0.,0.,1.0);
+
 }
 
 vec2 rotate(vec2 _uv, float _speed, float _time){

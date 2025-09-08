@@ -1,0 +1,38 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://ct4vhxlb2pc1d"]
+
+[sub_resource type="Curve" id="Curve_6kw5c"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wisak"]
+curve = SubResource("Curve_6kw5c")
+
+[resource]
+particle_flag_disable_z = true
+angle_curve = SubResource("CurveTexture_wisak")
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 68.18
+initial_velocity_max = 75.75
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+orbit_velocity_min = 0.939
+orbit_velocity_max = 0.939
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -24.24
+radial_accel_max = 10.61
+tangential_accel_min = -46.97
+tangential_accel_max = 37.88
+scale_min = 607.06
+scale_max = 607.06
+scale_over_velocity_max = 1000.0
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+anim_speed_min = 6.43
+anim_speed_max = 15.04
+turbulence_noise_scale = 0.0
+turbulence_influence_min = 0.162
+turbulence_influence_max = 0.162
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 1

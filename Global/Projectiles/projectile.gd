@@ -57,7 +57,7 @@ func initialize_collision_and_hurtbox_shapes(collision, hurtbox):
 
 func set_collision_size_equals_sprite(on: bool) -> void:
 	var actual_sprite_height = load(projectile_resource.sprite_texture).get_height() / (projectile_resource.num_of_frames) # Returns height (accounting for animated sprite frames)
-	var actual_sprite_width = (load(projectile_resource.sprite_texture).get_width())
+	var actual_sprite_width = load(projectile_resource.sprite_texture).get_width()
 	if on:
 		if collision_shape.shape.is_class("CapsuleShape2D"):
 			#collision_shape.shape.set_radius(load(projectile_resource.sprite_texture).get_height()/2)

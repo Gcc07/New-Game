@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1ni4ev2i4io8"
-path="res://.godot/imported/RenjiRun-Sheet.png-f99ea95fec2eaa7c449e3dcc55e732d8.ctex"
+uid="uid://bb0fv1yoosbku"
+path="res://.godot/imported/downslash_1.png-4244d54582bdefee26ebc63e6792cdfb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/RenjiRun-Sheet.png"
-dest_files=["res://.godot/imported/RenjiRun-Sheet.png-f99ea95fec2eaa7c449e3dcc55e732d8.ctex"]
+source_file="res://Assets/Art/Attacks/downslash_1.png"
+dest_files=["res://.godot/imported/downslash_1.png-4244d54582bdefee26ebc63e6792cdfb.ctex"]
 
 [params]
 

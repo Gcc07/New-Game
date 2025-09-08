@@ -32,5 +32,5 @@ affected_by_gravity = true
 speed = 100.0
 acceleration = 0.0
 spin_speed = 3.0
-modulate_color = Color(1, 0.81834, 0.707755, 1)
+modulate_color = Color(255, 255, 255, 255)
 metadata/_custom_type_script = "uid://ch13tt26l8qwb"

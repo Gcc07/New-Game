@@ -28,7 +28,7 @@ func enter() -> void:
 	finished_attack = false
 	moveAnimations.active = false
 	actionAnimations.active = true
-	actionAnimations.play(str(parent.name)+"Action/" + animation_name)
+	actionAnimations.play(str(parent.entity_id)+"Action/" + animation_name)
 
 func exit() -> void:
 	actionAnimations.active = false

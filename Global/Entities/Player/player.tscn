@@ -1,11 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://cly0gxqkuoiej"]
+[gd_scene load_steps=31 format=3 uid="uid://cly0gxqkuoiej"]
 
 [ext_resource type="Script" uid="uid://dk4dgxmfagupv" path="res://Global/Entities/Player/player.gd" id="1_kty55"]
-[ext_resource type="Texture2D" uid="uid://b1ni4ev2i4io8" path="res://Assets/Art/RenjiRun-Sheet.png" id="2_i1k8r"]
+[ext_resource type="Texture2D" uid="uid://b1ni4ev2i4io8" path="res://Assets/Art/Characters/RenjiRun-Sheet.png" id="2_i1k8r"]
 [ext_resource type="AnimationLibrary" uid="uid://dd4yvq0oqh767" path="res://Global/Entities/Player/Animations/PlayerAction.res" id="2_y8nmg"]
 [ext_resource type="Script" uid="uid://b423telj4t1ps" path="res://Global/Entities/Player/player_move_component.gd" id="3_5a672"]
 [ext_resource type="AnimationLibrary" uid="uid://bn7c4qjgnvlcx" path="res://Global/Entities/Player/Animations/PlayerMove.res" id="3_sa4b0"]
-[ext_resource type="Script" uid="uid://c7vi47ybajeqd" path="res://Global/Entities/Player/player_camera.gd" id="4_yck8p"]
 [ext_resource type="Script" uid="uid://drxj12esmfjyt" path="res://Global/Entities/Player/player_action_component.gd" id="4_ywbxx"]
 [ext_resource type="PackedScene" uid="uid://c2njkfc01sgji" path="res://Global/Entities/StateMachines/move_state_machine.tscn" id="6_8sue5"]
 [ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="7_eu4vx"]
@@ -23,7 +22,8 @@
 [ext_resource type="Script" uid="uid://swrkuwy8kc7r" path="res://Global/Entities/PublicStates/Action/none_action_state.gd" id="21_quk2k"]
 [ext_resource type="Resource" uid="uid://cxf07rhee62gt" path="res://Global/Projectiles/Resources/energy_blast_projectile_resource.tres" id="22_6ctnb"]
 [ext_resource type="Script" uid="uid://dyapo17frowtf" path="res://Global/Entities/PublicStates/Action/stunned_action_state.gd" id="25_6ctnb"]
-[ext_resource type="Script" uid="uid://dwydmtbkvq638" path="res://Global/Components/health_label.gd" id="26_ffmis"]
+[ext_resource type="Script" uid="uid://cd7xc4daxs03y" path="res://Global/Entities/Player/player_data.gd" id="25_cnq0v"]
+[ext_resource type="Texture2D" uid="uid://bl3ahlg8fif5s" path="res://Assets/Art/UI.png" id="25_ffmis"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rjofx"]
 radius = 7.0
@@ -63,38 +63,18 @@ _data = {
 &"RESET": SubResource("Animation_hd8eq")
 }
 
-[sub_resource type="SystemFont" id="SystemFont_rkfol"]
-font_weight = 200
-font_stretch = 50
-subpixel_positioning = 0
-
-[sub_resource type="LabelSettings" id="LabelSettings_cnq0v"]
-line_spacing = 0.0
-font = SubResource("SystemFont_rkfol")
-font_size = 8
-font_color = Color(0.854902, 0.301961, 0.301961, 1)
-outline_size = 1
-outline_color = Color(1, 0, 0, 1)
-
-[sub_resource type="Gradient" id="Gradient_fmbsw"]
-colors = PackedColorArray(0.205117, 0.205117, 0.205117, 1, 0.203922, 0.203922, 0.203922, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8qjik"]
-gradient = SubResource("Gradient_fmbsw")
-width = 40
-height = 8
-
 [sub_resource type="Gradient" id="Gradient_ap0co"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.854902, 0.301961, 0.301961, 1)
+colors = PackedColorArray(0.901961, 0.270588, 0.223529, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1oibg"]
 gradient = SubResource("Gradient_ap0co")
-width = 36
-height = 6
+width = 32
+height = 2
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_kty55")
+entity_id = "Player"
 hostile = false
 
 [node name="Hitbox" parent="." instance=ExtResource("18_3h6te")]
@@ -156,44 +136,6 @@ script = ExtResource("4_ywbxx")
 [node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
 script = ExtResource("7_eu4vx")
 hitbox = NodePath("../Hitbox")
-
-[node name="HealthLabel" type="Label" parent="."]
-offset_left = -40.0
-offset_top = -38.0
-offset_right = 40.0
-offset_bottom = -14.0
-text = "
-"
-label_settings = SubResource("LabelSettings_cnq0v")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-script = ExtResource("26_ffmis")
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="HealthLabel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.435
-anchor_right = 0.25
-anchor_bottom = 0.435
-offset_top = -9.44
-offset_right = 40.0
-offset_bottom = 0.56
-max_value = 10.0
-step = 0.0
-value = 10.0
-rounded = true
-texture_under = SubResource("GradientTexture2D_8qjik")
-texture_progress = SubResource("GradientTexture2D_1oibg")
-texture_progress_offset = Vector2(2, 1)
-
-[node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
-offset = Vector2(0, -10)
-ignore_rotation = false
-zoom = Vector2(2, 2)
-script = ExtResource("4_yck8p")
-target = NodePath("..")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_bcadw")
@@ -281,5 +223,35 @@ stunned_state = NodePath(".")
 animation_name = "stunned"
 metadata/_custom_type_script = "uid://br23gdmo4glw4"
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Player Data" type="TextureRect" parent="HUD"]
+texture_filter = 1
+offset_right = 82.0
+offset_bottom = 25.0
+scale = Vector2(2, 2)
+texture = ExtResource("25_ffmis")
+stretch_mode = 4
+script = ExtResource("25_cnq0v")
+
+[node name="Health" type="TextureProgressBar" parent="HUD/Player Data"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.435
+anchor_right = 0.25
+anchor_bottom = 0.435
+offset_left = 9.5
+offset_top = 0.125
+offset_right = 45.5
+offset_bottom = 4.125
+max_value = 10.0
+step = 0.0
+value = 10.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_1oibg")
+texture_progress_offset = Vector2(2, 1)
+
 [connection signal="damaged" from="Hitbox" to="." method="_on_damaged"]
-[connection signal="health_changed" from="HealthComponent" to="HealthLabel" method="on_health_changed"]
+[connection signal="health_changed" from="HealthComponent" to="HUD/Player Data" method="on_health_changed"]

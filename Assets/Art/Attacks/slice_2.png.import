@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb0fv1yoosbku"
-path="res://.godot/imported/downslash_1.png-3edfcf888d333d962b8f3c7aa7dda4b6.ctex"
+uid="uid://ci5ekwenhgfwy"
+path="res://.godot/imported/slice_2.png-8d0b96721ba451534978cb7ac02a3fcc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/downslash_1.png"
-dest_files=["res://.godot/imported/downslash_1.png-3edfcf888d333d962b8f3c7aa7dda4b6.ctex"]
+source_file="res://Assets/Art/Attacks/slice_2.png"
+dest_files=["res://.godot/imported/slice_2.png-8d0b96721ba451534978cb7ac02a3fcc.ctex"]
 
 [params]
 
