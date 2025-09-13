@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cqxlfhln76dxm"]
+[gd_scene load_steps=48 format=3 uid="uid://cqxlfhln76dxm"]
 
 [ext_resource type="Script" uid="uid://bkg1iossc3cto" path="res://Global/Entities/Enemies/Handler/handler.gd" id="1_5xbvj"]
 [ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="2_7necc"]
@@ -16,7 +16,7 @@
 [ext_resource type="Resource" uid="uid://dj8ruv3xql0hy" path="res://Global/Projectiles/Resources/down_slash.tres" id="15_mypf7"]
 [ext_resource type="Script" uid="uid://dwydmtbkvq638" path="res://Global/Components/health_label.gd" id="15_p2dqc"]
 [ext_resource type="Script" uid="uid://y4rs71ay7bna" path="res://Global/Entities/PublicStates/Action/death_action_state.gd" id="16_44duj"]
-[ext_resource type="Resource" uid="uid://cj7v1mks3os17" path="res://Global/Projectiles/Resources/ground_chunk_projectile.tres" id="16_o053h"]
+[ext_resource type="Script" uid="uid://ch13tt26l8qwb" path="res://Global/Projectiles/Resources/projectile_resource.gd" id="16_o053h"]
 [ext_resource type="Script" uid="uid://c78hv42ji8xp1" path="res://Global/Entities/Enemies/Handler/UniqueStates/handler_none_state.gd" id="17_o053h"]
 [ext_resource type="Script" uid="uid://dyapo17frowtf" path="res://Global/Entities/PublicStates/Action/stunned_action_state.gd" id="19_necso"]
 [ext_resource type="Script" uid="uid://oxkcfursfdns" path="res://Global/Entities/Enemies/Handler/UniqueStates/notice_action_state.gd" id="20_o053h"]
@@ -257,9 +257,18 @@ font_color = Color(0.854902, 0.301961, 0.301961, 1)
 outline_size = 1
 outline_color = Color(1, 0, 0, 1)
 
+[sub_resource type="Gradient" id="Gradient_o053h"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d8ri2"]
+gradient = SubResource("Gradient_o053h")
+width = 28
+height = 2
+
 [sub_resource type="Gradient" id="Gradient_d8ri2"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.854902, 0.301961, 0.301961, 1)
+colors = PackedColorArray(0.901961, 0.270588, 0.223529, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rjix3"]
 gradient = SubResource("Gradient_d8ri2")
@@ -270,9 +279,42 @@ height = 2
 radius = 7.0
 height = 14.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_d8ri2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ldva7"]
+
+[sub_resource type="Resource" id="Resource_8x5ex"]
+script = ExtResource("16_o053h")
+ID = "Ground"
+stick_to_parent = false
+is_friendly = false
+damage = 3.0
+max_pierce = 1
+time_to_live = 3.0
+collision_shape = SubResource("CircleShape2D_d8ri2")
+hurtbox_shape = SubResource("CircleShape2D_ldva7")
+rotate_collision_shape = 0.0
+rotate_hurtbox_shape = 0.0
+collision_size_corresponds_to_sprite = true
+hurtbox_size_corresponds_to_sprite = true
+breaks_on_collision = false
+sprite_texture = "uid://cqnbr1gvb8h73"
+num_of_frames = 1
+animation_is_continous = true
+has_animation = false
+parent_offset = Vector2(-10, -10)
+scale_factor = Vector2(1, 1)
+initial_velocity = Vector2(0, 0)
+affected_by_gravity = true
+speed = 100.0
+acceleration = 0.0
+spin_speed = 3.0
+modulate_color = Color(255, 255, 255, 255)
+metadata/_custom_type_script = "uid://ch13tt26l8qwb"
+
 [node name="Handler" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 132
 script = ExtResource("1_5xbvj")
 AI_notice_radius = 100.0
 AI_pursue_radius = 150.0
@@ -359,7 +401,24 @@ vertical_alignment = 1
 uppercase = true
 script = ExtResource("15_p2dqc")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="HealthLabel"]
+[node name="ChangeEffectBar" type="TextureProgressBar" parent="HealthLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.458
+anchor_right = 0.3
+anchor_bottom = 0.458
+offset_top = -0.992001
+offset_right = 32.0
+offset_bottom = 3.008
+max_value = 1000.0
+step = 0.0
+value = 100.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_d8ri2")
+texture_progress_offset = Vector2(2, 1)
+
+[node name="HealthBar" type="TextureProgressBar" parent="HealthLabel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
@@ -434,7 +493,7 @@ animation_name = "light_attack"
 [node name="throw" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state", "stunned_state")]
 script = ExtResource("14_mimb8")
 none_state = NodePath("../none")
-attack_projectile_resource = ExtResource("16_o053h")
+attack_projectile_resource = SubResource("Resource_8x5ex")
 death_state = NodePath("../death")
 stunned_state = NodePath("../stunned")
 animation_name = "throw_attack"

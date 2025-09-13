@@ -38,8 +38,8 @@ particle_flag_disable_z = true
 gravity = Vector3(0, 98, 0)
 
 [node name="Projectile" type="CharacterBody2D" node_paths=PackedStringArray("hurtbox", "timer", "sprite", "collision_shape", "hurtbox_shape") groups=["projectile"]]
-collision_layer = 0
-collision_mask = 3
+collision_layer = 4
+collision_mask = 128
 safe_margin = 3.363
 script = ExtResource("1_x0qej")
 hurtbox = NodePath("ProjectileHurtbox")

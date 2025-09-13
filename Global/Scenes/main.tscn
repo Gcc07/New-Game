@@ -29,7 +29,8 @@ texture = ExtResource("1_3ptaa")
 6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0.179859, -8, 0.179859)
 
 [sub_resource type="TileSet" id="TileSet_vj60j"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 128
+physics_layer_0/collision_mask = 7
 sources/0 = SubResource("TileSetAtlasSource_155du")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pomkq"]
@@ -148,7 +149,5 @@ grow_vertical = 2
 position = Vector2(72, 248)
 
 [node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
-position = Vector2(240, 135)
-ignore_rotation = false
 script = ExtResource("10_8n0gi")
 target = NodePath("../Player")

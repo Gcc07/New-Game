@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cly0gxqkuoiej"]
+[gd_scene load_steps=33 format=3 uid="uid://cly0gxqkuoiej"]
 
 [ext_resource type="Script" uid="uid://dk4dgxmfagupv" path="res://Global/Entities/Player/player.gd" id="1_kty55"]
 [ext_resource type="Texture2D" uid="uid://b1ni4ev2i4io8" path="res://Assets/Art/Characters/RenjiRun-Sheet.png" id="2_i1k8r"]
@@ -65,14 +65,24 @@ _data = {
 
 [sub_resource type="Gradient" id="Gradient_ap0co"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.901961, 0.270588, 0.223529, 1)
+colors = PackedColorArray(1, 1, 1, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1oibg"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_quk2k"]
 gradient = SubResource("Gradient_ap0co")
 width = 32
 height = 2
 
+[sub_resource type="Gradient" id="Gradient_quk2k"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.901961, 0.270588, 0.223529, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6ctnb"]
+gradient = SubResource("Gradient_quk2k")
+width = 32
+height = 2
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 128
 script = ExtResource("1_kty55")
 entity_id = "Player"
 hostile = false
@@ -234,7 +244,27 @@ texture = ExtResource("25_ffmis")
 stretch_mode = 4
 script = ExtResource("25_cnq0v")
 
-[node name="Health" type="TextureProgressBar" parent="HUD/Player Data"]
+[node name="ChangeEffectBar" type="TextureProgressBar" parent="HUD/Player Data"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.435
+anchor_right = 0.25
+anchor_bottom = 0.435
+offset_left = 9.5
+offset_top = 0.125
+offset_right = 45.5
+offset_bottom = 4.125
+max_value = 1000.0
+step = 0.0
+value = 10.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_quk2k")
+texture_progress_offset = Vector2(2, 1)
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/Player Data"]
+z_index = 1
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
@@ -250,7 +280,7 @@ max_value = 10.0
 step = 0.0
 value = 10.0
 rounded = true
-texture_progress = SubResource("GradientTexture2D_1oibg")
+texture_progress = SubResource("GradientTexture2D_6ctnb")
 texture_progress_offset = Vector2(2, 1)
 
 [connection signal="damaged" from="Hitbox" to="." method="_on_damaged"]

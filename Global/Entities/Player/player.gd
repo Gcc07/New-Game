@@ -47,7 +47,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-
 	# print("Movement: " + move_animations.current_animation, "       Action: " + action_animations.current_animation)
 	# print("The attack is: " + attack_state_machine.current_state.name)
 
