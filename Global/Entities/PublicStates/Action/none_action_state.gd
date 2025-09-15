@@ -15,8 +15,13 @@ func enter() -> void:
 	actionAnimations.active = false
 	moveAnimations.active = true
 
+func _on_hitbox_damaged(attack: Attack):
+	if attack.stuns == true:
+		parent.stunned = true
 
 func process_physics(delta: float) -> ActionState:
+	if parent.stunned:
+		return stunned_state
 	if not parent.alive:
 		return death_state
 	if get_special_attack_input():

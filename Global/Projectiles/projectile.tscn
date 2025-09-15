@@ -1,15 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://be3mpsirj8rwt"]
+[gd_scene load_steps=8 format=3 uid="uid://be3mpsirj8rwt"]
 
 [ext_resource type="Script" uid="uid://dq8rg7w5y8i6a" path="res://Global/Projectiles/projectile.gd" id="1_x0qej"]
 [ext_resource type="Script" uid="uid://ch13tt26l8qwb" path="res://Global/Projectiles/Resources/projectile_resource.gd" id="2_joau3"]
 [ext_resource type="Script" uid="uid://cg3qeta413pu0" path="res://Global/Components/hurtbox.gd" id="3_1lnlt"]
+[ext_resource type="Material" uid="uid://dad2q3m7wbttr" path="res://Global/Entities/Shaders/entity_shader.tres" id="3_6kw5c"]
 
 [sub_resource type="Resource" id="Resource_6kw5c"]
+resource_local_to_scene = true
 script = ExtResource("2_joau3")
 ID = ""
 stick_to_parent = false
 is_friendly = true
 damage = 5.0
+stuns = true
 max_pierce = 1
 time_to_live = 0.1
 rotate_collision_shape = 0.0
@@ -51,6 +54,7 @@ projectile_resource = SubResource("Resource_6kw5c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 2
+material = ExtResource("3_6kw5c")
 texture = SubResource("PlaceholderTexture2D_y6bbh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -68,6 +72,7 @@ debug_color = Color(0.910174, 0.248337, 0.423644, 0.42)
 [node name="Timer" type="Timer" parent="."]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
 amount = 20
 lifetime = 6.65
 preprocess = 0.26

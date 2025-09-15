@@ -28,6 +28,7 @@ func process_physics(delta: float) -> MovementState:
 	parent.velocity.x = movement
 	parent.move_and_slide()
 	
+	# After landing, if still moving return move state. If not moving, return idle.
 	if parent.is_on_floor():
 		if movement != 0:
 			return move_state

@@ -7,7 +7,7 @@ var aim_position : Vector2 = Vector2(1, 0)
 var attack_point = $AttackPoint
 
 @onready
-var player_sprite : Sprite2D = $Sprite2D
+var entity_sprite : Sprite2D = $Sprite2D
 @onready
 var move_animations: AnimationPlayer = $MoveAnimationPlayer
 @onready
@@ -25,8 +25,8 @@ var player_action_component = $PlayerActionComponent
 
 func _ready() -> void:
 
-	movement_state_machine.init(self, player_sprite, move_animations, action_animations, player_move_component)
-	action_state_machine.init(self, player_sprite, move_animations, action_animations, player_action_component)
+	movement_state_machine.init(self, entity_sprite, move_animations, action_animations, player_move_component)
+	action_state_machine.init(self, entity_sprite, move_animations, action_animations, player_action_component)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -63,11 +63,6 @@ func on_damaged(attack: Attack) -> void:
 
 func _on_damaged(attack: Attack) -> void:
 	pass # Replace with function body.
-
-
-func _on_health_changed(health: float) -> void:
-	pass # Replace with function body.
-
 
 func on_health_changed(health: float) -> void:
 	pass # Replace with function body.

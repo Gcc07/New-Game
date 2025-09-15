@@ -211,7 +211,6 @@ func destroy_projectile(delay: float = 0):
 		add_child(destroy_timer)
 		destroy_timer.start(delay)
 		destroy_timer.timeout.connect(_destroy_timer_timout)
-	
 
 func _destroy_timer_timout():
 	queue_free()

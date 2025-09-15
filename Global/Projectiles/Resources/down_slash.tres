@@ -7,11 +7,13 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7guy8"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_uv583")
 ID = "down_slash"
 stick_to_parent = true
 is_friendly = false
 damage = 1.0
+stuns = true
 max_pierce = 1
 time_to_live = 0.1
 collision_shape = SubResource("CapsuleShape2D_uv583")

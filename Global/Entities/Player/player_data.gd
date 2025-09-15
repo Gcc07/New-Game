@@ -26,6 +26,5 @@ func _process(delta: float) -> void:
 	else:
 		if $ChangeEffectBar.value- $HealthBar.value * change_max_value_health_value_quotient  > 1:
 			$ChangeEffectBar.value = $ChangeEffectBar.value - 1
-			print(":mins")
 		else:
 			lerping = false

@@ -4,3 +4,4 @@ class_name Attack
 # between hurtboxes and hitboxes
 
 var damage := 10.0
+var stuns := false

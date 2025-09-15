@@ -8,3 +8,4 @@ extends CharacterBody2D
 @export var can_move := true
 @export var hostile := true
 @export var can_be_damaged := true
+@export var stunned := false

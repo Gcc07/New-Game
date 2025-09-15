@@ -10,6 +10,8 @@ extends Resource
 @export var is_friendly := true
 ## The amount of damage the Projectile deals.
 @export var damage := 5.0
+## Does the projectile stun its target?
+@export var stuns := true
 ## The maximum amount of Entities the projectile can pierce
 @export var max_pierce := 1
 ## Amount of time a projectile has before it dissapears.
