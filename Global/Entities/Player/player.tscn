@@ -72,7 +72,6 @@ height = 2
 collision_mask = 128
 script = ExtResource("1_kty55")
 entity_id = "Player"
-hostile = false
 
 [node name="Hitbox" parent="." instance=ExtResource("18_3h6te")]
 position = Vector2(0, -7)

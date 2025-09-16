@@ -1,6 +1,7 @@
-[gd_scene load_steps=48 format=3 uid="uid://cqxlfhln76dxm"]
+[gd_scene load_steps=51 format=3 uid="uid://cqxlfhln76dxm"]
 
 [ext_resource type="Script" uid="uid://bkg1iossc3cto" path="res://Global/Entities/Enemies/Handler/handler.gd" id="1_5xbvj"]
+[ext_resource type="Material" uid="uid://dad2q3m7wbttr" path="res://Global/Entities/Shaders/entity_shader.tres" id="1_d8ri2"]
 [ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="2_7necc"]
 [ext_resource type="Script" uid="uid://cql8acbpetak4" path="res://Global/Entities/Enemies/Enemy/UniqueComponents/enemy_move_component.gd" id="3_w41fc"]
 [ext_resource type="Texture2D" uid="uid://dsb6tv6epn1mh" path="res://Assets/Art/Characters/Handler-sheet.png" id="4_gp4px"]
@@ -222,7 +223,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
+"update": 1,
 "values": [22, 17, 24]
 }
 
@@ -299,6 +300,81 @@ gradient = SubResource("Gradient_d8ri2")
 width = 28
 height = 2
 
+[sub_resource type="Shader" id="Shader_d8ri2"]
+code = "shader_type canvas_item;
+
+// === User Controls ===
+
+// Color of the outline
+uniform vec4 outline_color    : source_color = vec4(1.0);
+// How far to search around a pixel for solid neighbors (in texels)
+uniform float outline_size    : hint_range(0.0, 16.0, 0.1) = 1.0;
+// Minimum alpha for a pixel to be considered solid
+uniform float alpha_threshold : hint_range(0.0, 1.0, 0.01) = 0.0;
+// Number of directions to sample from (max 8)
+uniform int outline_samples   : hint_range(4, 8) = 4;
+// Color to blend with solid pixels (alpha is blend strength)
+uniform vec4 shade_color      : source_color = vec4(1.0, 1.0, 1.0, .5); 
+
+// === Outline Sampling Directions ===
+
+const vec2[8] DIRS = vec2[8]
+(vec2(1.0, 0.0), vec2(0.0, 1.0),  vec2(-1.0, 0.0),  vec2(0.0, -1.0),
+ vec2(1.0, 1.0), vec2(-1.0, 1.0), vec2(-1.0, -1.0), vec2(1.0, -1.0));
+
+// === Main Fragment ===
+
+void fragment() {
+	vec4 tex = texture(TEXTURE, UV);
+	float alpha = tex.a;
+	
+	 // Skip fully transparent pixel with no outline
+	if (alpha <= 0.0 && outline_size <= 0.0) discard;
+
+	bool solid = alpha > alpha_threshold;
+	bool semi  = (alpha > 0.0) && !solid;
+	vec4 out_color = tex;
+
+	// Blend solid pixels toward the shade_color based on its alpha
+	if (solid && shade_color.a > 0.0) {
+		out_color.rgb = mix(tex.rgb, shade_color.rgb, shade_color.a);
+		out_color.a   = alpha;
+	}
+
+	bool found = false;
+
+	// If not solid, check surrounding pixels for solid neighbors
+	if (!solid && outline_size > 0.0) {
+		vec2 offset = TEXTURE_PIXEL_SIZE * outline_size;
+		for (int i = 0; i < outline_samples; i++) {
+			if (texture(TEXTURE, UV + DIRS[i] * offset).a > alpha_threshold) {
+				found = true;
+				break;
+			}
+		}
+	}
+
+	// Set final pixel color
+	if      (solid) COLOR = out_color;
+	else if (found) COLOR = outline_color;
+	else if (semi)  COLOR = tex;
+	else            discard;
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ldva7"]
+shader = SubResource("Shader_d8ri2")
+shader_parameter/outline_color = Color(0.105882, 0.121569, 0.129412, 1)
+shader_parameter/outline_size = 1.0
+shader_parameter/alpha_threshold = 0.0
+shader_parameter/outline_samples = 8
+shader_parameter/shade_color = Color(1, 1, 1, 0)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pvppk"]
 radius = 7.0
 height = 14.0
@@ -339,6 +415,7 @@ modulate_color = Color(255, 255, 255, 255)
 metadata/_custom_type_script = "uid://ch13tt26l8qwb"
 
 [node name="Handler" type="CharacterBody2D" groups=["enemy"]]
+material = ExtResource("1_d8ri2")
 collision_layer = 2
 collision_mask = 132
 script = ExtResource("1_5xbvj")
@@ -462,6 +539,7 @@ texture_progress = SubResource("GradientTexture2D_rjix3")
 texture_progress_offset = Vector2(2, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ldva7")
 texture = ExtResource("4_gp4px")
 offset = Vector2(0, -20)
 hframes = 7
