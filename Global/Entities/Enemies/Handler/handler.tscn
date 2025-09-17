@@ -411,7 +411,8 @@ affected_by_gravity = true
 speed = 100.0
 acceleration = 0.0
 spin_speed = 3.0
-modulate_color = Color(255, 255, 255, 255)
+modulate_color = Color(0.105882, 0.121569, 0.129412, 1)
+modulate_outline_color = Color(0.25098, 0.286275, 0.45098, 1)
 metadata/_custom_type_script = "uid://ch13tt26l8qwb"
 
 [node name="Handler" type="CharacterBody2D" groups=["enemy"]]

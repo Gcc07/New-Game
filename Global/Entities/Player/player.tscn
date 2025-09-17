@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cly0gxqkuoiej"]
+[gd_scene load_steps=34 format=3 uid="uid://cly0gxqkuoiej"]
 
 [ext_resource type="Script" uid="uid://dk4dgxmfagupv" path="res://Global/Entities/Player/player.gd" id="1_kty55"]
 [ext_resource type="Texture2D" uid="uid://b1ni4ev2i4io8" path="res://Assets/Art/Characters/RenjiRun-Sheet.png" id="2_i1k8r"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://y4rs71ay7bna" path="res://Global/Entities/PublicStates/Action/death_action_state.gd" id="21_5fg26"]
 [ext_resource type="Script" uid="uid://swrkuwy8kc7r" path="res://Global/Entities/PublicStates/Action/none_action_state.gd" id="21_quk2k"]
 [ext_resource type="Resource" uid="uid://cxf07rhee62gt" path="res://Global/Projectiles/Resources/energy_blast_projectile_resource.tres" id="22_6ctnb"]
+[ext_resource type="Script" uid="uid://c4e6rqyq4730p" path="res://Global/Entities/PublicStates/Action/parry_state.gd" id="24_ffmis"]
 [ext_resource type="Script" uid="uid://dyapo17frowtf" path="res://Global/Entities/PublicStates/Action/stunned_action_state.gd" id="25_6ctnb"]
 [ext_resource type="Script" uid="uid://cd7xc4daxs03y" path="res://Global/Entities/Player/player_data.gd" id="25_cnq0v"]
 [ext_resource type="Texture2D" uid="uid://bl3ahlg8fif5s" path="res://Assets/Art/UI.png" id="25_ffmis"]
@@ -197,11 +198,12 @@ death_state = NodePath("../death")
 stunned_state = NodePath("../stunned")
 animation_name = "special_attack"
 
-[node name="none" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("light_attack_state", "heavy_attack_state", "special_attack_state", "death_state", "stunned_state")]
+[node name="none" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("light_attack_state", "heavy_attack_state", "special_attack_state", "parry_state", "death_state", "stunned_state")]
 script = ExtResource("21_quk2k")
 light_attack_state = NodePath("../light")
 heavy_attack_state = NodePath("../heavy")
 special_attack_state = NodePath("../special")
+parry_state = NodePath("../parry")
 death_state = NodePath("../death")
 stunned_state = NodePath("../stunned")
 
@@ -214,10 +216,18 @@ animation_name = "death"
 [node name="stunned" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state", "stunned_state")]
 script = ExtResource("25_6ctnb")
 none_state = NodePath("../none")
-stun_time = 0.1
+stun_time = 0.05
 death_state = NodePath("../death")
 stunned_state = NodePath(".")
 animation_name = "stunned"
+metadata/_custom_type_script = "uid://br23gdmo4glw4"
+
+[node name="parry" type="Node" parent="ActionStateMachine" node_paths=PackedStringArray("none_state", "death_state", "stunned_state")]
+script = ExtResource("24_ffmis")
+none_state = NodePath("../none")
+death_state = NodePath("../death")
+stunned_state = NodePath("../stunned")
+animation_name = "parry"
 metadata/_custom_type_script = "uid://br23gdmo4glw4"
 
 [node name="HUD" type="CanvasLayer" parent="."]

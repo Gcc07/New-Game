@@ -17,12 +17,18 @@ func process_input(event: InputEvent) -> MovementState:
 	return null
 
 func process_physics(delta: float) -> MovementState:
+	#var speed_multiplier : float
+	#for i in range(0,len(parent.status_effects_array) - 1):
+		#speed_multiplier += parent.status_effects_array[i]
+	#var entity_applied_speed_effects = speed_multiplier / len(parent.status_effects_array)
+		
+		
 	if get_jump() and parent.is_on_floor():
 		return jump_state
 
 	parent.velocity.y += gravity * delta
 	# print(get_movement_input(), get_parent().get_parent().name) - Prints the axis of movement + the entity moving.
-	var movement = get_movement_input() * move_speed
+	var movement = get_movement_input() * move_speed # * entity_applied_speed_effects
 	if movement == 0:
 		return idle_state
 	if parent.can_move == false:

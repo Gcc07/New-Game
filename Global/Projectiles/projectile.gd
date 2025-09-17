@@ -21,6 +21,7 @@ func _ready() -> void:
 
 	initialize_data()
 	initialize_color_modulation(projectile_resource.modulate_color)
+	initialize_outline_color_modulation(projectile_resource.modulate_outline_color)
 	init_scale(projectile_resource.scale_factor.x, projectile_resource.scale_factor.y)
 	initialize_collision_and_hurtbox_shapes(projectile_resource.collision_shape, projectile_resource.hurtbox_shape)
 	set_collision_size_equals_sprite(projectile_resource.collision_size_corresponds_to_sprite)
@@ -39,8 +40,13 @@ func _process(delta: float) -> void:
 var current_pierce_count := 0
 
 func initialize_color_modulation(color):
-	if not color == Color(255,255,255,255):
-		sprite.modulate = color
+	#if not color == Color(255,255,255,255):
+		#sprite.modulate = color
+	$Sprite2D.material.set_shader_parameter("shade_color", color)
+	$Sprite2D.material.set_shader_parameter("shade_color", color)
+
+func initialize_outline_color_modulation(color):
+	$Sprite2D.material.set_shader_parameter("outline_color", color)
 
 func initialize_is_friendly(friendly):
 	if friendly:

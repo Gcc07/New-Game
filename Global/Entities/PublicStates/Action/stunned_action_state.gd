@@ -11,7 +11,7 @@ extends ActionState
 func enter() -> void:
 	super()
 	stun_timer.start()
-	parent.can_move = false
+	parent.can_move = true
 	parent.can_be_damaged = false
 	actionAnimations.active = true
 	moveAnimations.active = false

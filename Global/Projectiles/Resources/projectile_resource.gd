@@ -53,4 +53,6 @@ extends Resource
 ## Projectile spin speed.
 @export var spin_speed : float = 0.0
 ## Modulate color of the whole projectile
-@export var modulate_color : Color = Color(255,255,255,255)
+@export var modulate_color : Color = Color(0,0,0,0)
+## Modulate outline color of projectile
+@export var modulate_outline_color : Color = Color(0.106, 0.122, 0.129)

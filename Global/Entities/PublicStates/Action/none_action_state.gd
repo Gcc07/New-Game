@@ -10,6 +10,10 @@ var heavy_attack_state : ActionState
 @export
 var special_attack_state : ActionState
 
+@export_group("Action States")
+@export
+var parry_state : ActionState
+
 func enter() -> void:
 	parent.can_move = true
 	actionAnimations.active = false
@@ -31,6 +35,8 @@ func process_physics(delta: float) -> ActionState:
 	if get_heavy_attack_input():
 		if parent.is_on_floor():
 			return heavy_attack_state
+	if get_parry_input():
+		return parry_state
 	else: 
 		return null
 	return null
