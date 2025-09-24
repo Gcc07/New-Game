@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dq8rg7w5y8i6a" path="res://Global/Projectiles/projectile.gd" id="1_x0qej"]
 [ext_resource type="Script" uid="uid://ch13tt26l8qwb" path="res://Global/Projectiles/Resources/projectile_resource.gd" id="2_joau3"]
-[ext_resource type="Script" uid="uid://cg3qeta413pu0" path="res://Global/Components/hurtbox.gd" id="3_1lnlt"]
+[ext_resource type="Script" uid="uid://cg3qeta413pu0" path="res://Global/Classes/hurtbox.gd" id="3_1lnlt"]
 [ext_resource type="Material" uid="uid://dad2q3m7wbttr" path="res://Global/Entities/Shaders/entity_shader.tres" id="3_6kw5c"]
 
 [sub_resource type="Resource" id="Resource_6kw5c"]
@@ -85,5 +85,7 @@ collision_base_size = 0.0
 trail_enabled = true
 trail_lifetime = 0.27
 process_material = SubResource("ParticleProcessMaterial_joau3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

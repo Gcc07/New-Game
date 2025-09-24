@@ -15,7 +15,7 @@ func enter() -> void:
 	parent.can_be_damaged = false
 	actionAnimations.active = true
 	moveAnimations.active = false
-	parent.entity_sprite.material.set_shader_parameter("shade_color", Color(1.0, 1.0, 1.0))
+	sprite.material.set_shader_parameter("shade_color", Color(1.0, 1.0, 1.0))
 
 func _ready(): 
 	stun_timer.wait_time = stun_time
@@ -24,12 +24,11 @@ func _ready():
 	stun_timer.timeout.connect(_on_timer_timeout)
 
 func _on_timer_timeout():
-	print("STUN TIMER FINSIED")
 	parent.stunned = false
 
 func process_physics(delta: float) -> ActionState:
 	if not parent.stunned:
-		parent.entity_sprite.material.set_shader_parameter("shade_color", Color(1.0, 1.0, 1.0, 0.0))
+		sprite.material.set_shader_parameter("shade_color", Color(1.0, 1.0, 1.0, 0.0))
 		parent.can_be_damaged = true
 		return none_state
 	else: 

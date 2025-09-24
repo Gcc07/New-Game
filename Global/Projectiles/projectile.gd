@@ -27,7 +27,12 @@ func _ready() -> void:
 	set_collision_size_equals_sprite(projectile_resource.collision_size_corresponds_to_sprite)
 	set_hurtbox_size_equals_sprite(projectile_resource.hurtbox_size_corresponds_to_sprite)
 	set_attack_sprite(projectile_resource.sprite_texture)
+	
+	
 	initialize_projectile_frames(projectile_resource.num_of_frames)
+	setup_projectile_animation()
+	start_animation(projectile_resource.animation_is_continous)
+	
 	initialize_is_friendly(projectile_resource.is_friendly)
 	start_timer()
 
@@ -70,7 +75,7 @@ func set_collision_size_equals_sprite(on: bool) -> void:
 			collision_shape.shape.set_radius(actual_sprite_height/2)
 			collision_shape.shape.set_height(actual_sprite_width)
 			if projectile_resource.rotate_collision_shape > 0 or projectile_resource.rotate_collision_shape < 0:
-				collision_shape.rotate(projectile_resource.rotate_collision_shape)
+				collision_shape.rotate(deg_to_rad(projectile_resource.rotate_collision_shape))
 		if collision_shape.shape.is_class("CircleShape2D"):
 			collision_shape.shape.set_radius(actual_sprite_width/2)
 		if collision_shape.shape.is_class("RectangleShape2D"):
@@ -85,7 +90,7 @@ func set_hurtbox_size_equals_sprite(on: bool) -> void:
 			hurtbox_shape.shape.set_radius(actual_sprite_height/2)
 			hurtbox_shape.shape.set_height(actual_sprite_width)
 			if projectile_resource.rotate_collision_shape > 0 or projectile_resource.rotate_collision_shape < 0:
-				hurtbox_shape.rotate(projectile_resource.rotate_collision_shape * PI)
+				hurtbox_shape.rotate(deg_to_rad(projectile_resource.rotate_collision_shape))
 		if hurtbox_shape.shape.is_class("CircleShape2D"):
 			hurtbox_shape.shape.set_radius(actual_sprite_width/2)
 		if hurtbox_shape.shape.is_class("RectangleShape2D"):
@@ -104,27 +109,67 @@ func set_attack_sprite(texture: String) -> void:
 # 4/1/25 Gabe here. Yeah, it's a little scuffed, could get revamped fo sho.
 
 func control_projectile_animations(active: bool, continous: bool):
+	pass
 
-# The code below sets the intervals at which the projectile will change frames. (If applicable.)
-	var interval_array : Array = []
-	var interval : float = projectile_resource.time_to_live / projectile_resource.num_of_frames
-	var last_appended_interval : float = -snapped(interval, .1)
-	for i in range(0 , projectile_resource.num_of_frames):
-		last_appended_interval += snapped(interval, .1)
-		interval_array.append(last_appended_interval) 
+# Set up once in _ready()
+func setup_projectile_animation():
+	var animation_player = $AnimationPlayer
+	var animation = Animation.new()
+	var track_index = animation.add_track(Animation.TYPE_VALUE)
 	
-	if active && continous:
+	# Adjust this path to your actual Sprite location
+	animation.track_set_path(track_index, NodePath("Sprite2D:frame"))
+	
+	animation.length = projectile_resource.time_to_live
+	animation.loop = true  
+	
+	# Add keyframes
+	for i in range(projectile_resource.num_of_frames):
+		var time = (i * projectile_resource.time_to_live) / projectile_resource.num_of_frames
+		animation.track_insert_key(track_index, time, i)
+	
+	# Create animation library and assign
+	var animation_library = AnimationLibrary.new()
+	animation_library.add_animation("projectile_anim", animation)
+	animation_player.add_animation_library("default", animation_library)
+	
+func start_animation(continuous: bool):
+	var animation_player = $AnimationPlayer
+	var animation = animation_player.get_animation("default/projectile_anim")
 
-		if snapped(timer.time_left, 0.0001) in interval_array:
-			sprite.frame += 1
-			if sprite.frame == projectile_resource.num_of_frames:
-				sprite.frame = 0
+	if animation:
+		if continuous:
+			animation.loop_mode = Animation.LOOP_LINEAR
+			animation_player.play("default/projectile_anim")
+		else:
+			animation.loop_mode = Animation.LOOP_NONE
+			animation_player.play("default/projectile_anim")
 
-	elif active && ! continous:
-		if snapped(timer.time_left, 0.0001) in interval_array && sprite.frame != projectile_resource.num_of_frames:
-			sprite.frame += 1
-	else:
-		pass
+
+
+
+## The code below sets the intervals at which the projectile will change frames. (If applicable.)
+	#var interval_array : Array = []
+	#var interval : float = projectile_resource.time_to_live / projectile_resource.num_of_frames
+	#var last_appended_interval : float = -snapped(interval, .1)
+	#for i in range(0 , projectile_resource.num_of_frames):
+		#last_appended_interval += snapped(interval, .1)
+		#interval_array.append(last_appended_interval) 
+	#
+	#if active && continous:
+#
+		#if snapped(timer.time_left, 0.0001) in interval_array:
+			#sprite.frame += 1
+			#if sprite.frame == projectile_resource.num_of_frames:
+				#sprite.frame = 0
+#
+	#elif active && ! continous:
+		#if snapped(timer.time_left, 0.0001) in interval_array && sprite.frame != projectile_resource.num_of_frames:
+			#sprite.frame += 1
+	#else:
+		#pass
+
+
 
 # Projectile physics. This controls the rotation, movement, and more of the projectile.
 # Okay system right now? It could probably be better. It just checks for if the projectile

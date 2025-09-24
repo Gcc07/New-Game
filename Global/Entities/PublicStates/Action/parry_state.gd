@@ -11,7 +11,7 @@ extends ActionState
 func enter() -> void:
 	super()
 	parry_timer.start()
-	parent.can_move = true
+	parent.can_move = false
 	parent.parrying = true
 	actionAnimations.active = true
 	moveAnimations.active = false
@@ -23,7 +23,7 @@ func _ready():
 	parry_timer.timeout.connect(_on_timer_timeout)
 
 func _on_timer_timeout():
-	print("PARRY TIMER FINSIED")
+	moveAnimations.active = true
 	parent.parrying = false
 
 func process_physics(delta: float) -> ActionState:

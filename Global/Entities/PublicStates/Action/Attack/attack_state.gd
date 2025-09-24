@@ -8,6 +8,9 @@ var none_state : ActionState
 @export 
 var attack_projectile_resource : ProjectileResource
 
+#@export
+#var sound : SoundEffect.SOUND_EFFECT_TYPE
+
 @onready var finished_attack : bool = false
 
 var projectile : PackedScene = preload("uid://be3mpsirj8rwt")
@@ -24,6 +27,10 @@ func get_special_attack_input() -> bool:
 	return action_component.get_special_attack_input()
 
 func enter() -> void:
+	# Overwriting the enter statements in the action state
+	if not parent.hitbox.is_connected("damaged", _on_hitbox_damaged): # If the hitbox isn't connected,
+		parent.hitbox.damaged.connect(_on_hitbox_damaged) # Connect it.
+
 	parent.can_move = allow_movement
 	finished_attack = false
 	moveAnimations.active = false
@@ -34,9 +41,12 @@ func exit() -> void:
 	actionAnimations.active = false
 
 func process_physics(delta: float) -> ActionState:
-	# print(self.name)
 	if not parent.alive:
 		return death_state
+	# print(self.name)
+	if parent.stunned:
+		return stunned_state
+
 	if finished_attack:
 		return none_state
 	else:

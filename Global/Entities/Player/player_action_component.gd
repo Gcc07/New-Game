@@ -14,12 +14,3 @@ func get_heavy_attack_input() -> bool:
 
 func get_parry_input() -> bool:
 	return Input.is_action_just_pressed("parry")
-
-
-
-
-func get_input() -> String:
-	if Input.is_action_just_pressed("special_attack"):
-		return "special_attack"
-	return ""
-	

@@ -15,6 +15,7 @@ var special_attack_state : ActionState
 var parry_state : ActionState
 
 func enter() -> void:
+	
 	parent.can_move = true
 	actionAnimations.active = false
 	moveAnimations.active = true
@@ -37,6 +38,4 @@ func process_physics(delta: float) -> ActionState:
 			return heavy_attack_state
 	if get_parry_input():
 		return parry_state
-	else: 
-		return null
 	return null

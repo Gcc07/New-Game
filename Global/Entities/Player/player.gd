@@ -22,6 +22,9 @@ var player_move_component = $PlayerMoveComponent
 @onready
 var player_action_component = $PlayerActionComponent
 
+@onready
+var hitbox = $Hitbox
+
 
 func _ready() -> void:
 

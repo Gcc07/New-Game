@@ -1,0 +1,231 @@
+[gd_scene load_steps=19 format=3 uid="uid://c7ibdequcmxh4"]
+
+[ext_resource type="Script" uid="uid://cv300ogata8cn" path="res://Global/Entities/NPCs/Wyrd/wyrd_npc.gd" id="1_ilor2"]
+[ext_resource type="PackedScene" uid="uid://jmnf0fy8c8di" path="res://Global/Classes/hitbox.tscn" id="2_gov7c"]
+[ext_resource type="Texture2D" uid="uid://c2feqr35ca5m0" path="res://Assets/Art/K2 Idle-Sheet.png" id="3_biyvt"]
+[ext_resource type="PackedScene" uid="uid://c2njkfc01sgji" path="res://Global/Entities/StateMachines/move_state_machine.tscn" id="4_6angc"]
+[ext_resource type="AnimationLibrary" uid="uid://dy7jyd6nyl7qc" path="res://Global/Entities/NPCs/Wyrd/Animations/WyrdMove.res" id="4_biyvt"]
+[ext_resource type="Script" uid="uid://vdwjy5ar2b6m" path="res://Global/Entities/PublicStates/Movement/move.gd" id="5_yc1lo"]
+[ext_resource type="Script" uid="uid://dyrygqjk1mao2" path="res://Global/Entities/PublicStates/Movement/fall.gd" id="6_8a2b4"]
+[ext_resource type="Script" uid="uid://bybtb1c113b3d" path="res://Global/Entities/PublicStates/Movement/idle.gd" id="7_qcbef"]
+[ext_resource type="Script" uid="uid://bnycl8fb3yooy" path="res://Global/Entities/PublicStates/Movement/jump.gd" id="8_q0cg4"]
+[ext_resource type="Script" uid="uid://bl5bugg34keig" path="res://Global/Entities/NPCs/Wyrd/wyrd_move_component.gd" id="9_gov7c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gov7c"]
+radius = 60.0
+
+[sub_resource type="Shader" id="Shader_od1gj"]
+code = "shader_type canvas_item;
+
+// === User Controls ===
+
+// Color of the outline
+uniform vec4 outline_color    : source_color = vec4(1.0);
+// How far to search around a pixel for solid neighbors (in texels)
+uniform float outline_size    : hint_range(0.0, 16.0, 0.1) = 1.0;
+// Minimum alpha for a pixel to be considered solid
+uniform float alpha_threshold : hint_range(0.0, 1.0, 0.01) = 0.0;
+// Number of directions to sample from (max 8)
+uniform int outline_samples   : hint_range(4, 8) = 4;
+// Color to blend with solid pixels (alpha is blend strength)
+uniform vec4 shade_color      : source_color = vec4(1.0, 1.0, 1.0, .5); 
+
+// === Outline Sampling Directions ===
+
+const vec2[8] DIRS = vec2[8]
+(vec2(1.0, 0.0), vec2(0.0, 1.0),  vec2(-1.0, 0.0),  vec2(0.0, -1.0),
+ vec2(1.0, 1.0), vec2(-1.0, 1.0), vec2(-1.0, -1.0), vec2(1.0, -1.0));
+
+// === Main Fragment ===
+
+void fragment() {
+	vec4 tex = texture(TEXTURE, UV);
+	float alpha = tex.a;
+	
+	 // Skip fully transparent pixel with no outline
+	if (alpha <= 0.0 && outline_size <= 0.0) discard;
+
+	bool solid = alpha > alpha_threshold;
+	bool semi  = (alpha > 0.0) && !solid;
+	vec4 out_color = tex;
+
+	// Blend solid pixels toward the shade_color based on its alpha
+	if (solid && shade_color.a > 0.0) {
+		out_color.rgb = mix(tex.rgb, shade_color.rgb, shade_color.a);
+		out_color.a   = alpha;
+	}
+
+	bool found = false;
+
+	// If not solid, check surrounding pixels for solid neighbors
+	if (!solid && outline_size > 0.0) {
+		vec2 offset = TEXTURE_PIXEL_SIZE * outline_size;
+		for (int i = 0; i < outline_samples; i++) {
+			if (texture(TEXTURE, UV + DIRS[i] * offset).a > alpha_threshold) {
+				found = true;
+				break;
+			}
+		}
+	}
+
+	// Set final pixel color
+	if      (solid) COLOR = out_color;
+	else if (found) COLOR = outline_color;
+	else if (semi)  COLOR = tex;
+	else            discard;
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48iat"]
+resource_local_to_scene = true
+shader = SubResource("Shader_od1gj")
+shader_parameter/outline_color = Color(0.105882, 0.121569, 0.129412, 1)
+shader_parameter/outline_size = 1.0
+shader_parameter/alpha_threshold = 0.0
+shader_parameter/outline_samples = 8
+shader_parameter/shade_color = Color(1, 1, 1, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rwky"]
+radius = 7.0
+height = 14.0
+
+[sub_resource type="Animation" id="Animation_6angc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yc1lo"]
+_data = {
+&"RESET": SubResource("Animation_6angc")
+}
+
+[sub_resource type="Animation" id="Animation_hd8eq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_asgkc"]
+_data = {
+&"RESET": SubResource("Animation_hd8eq")
+}
+
+[node name="Wyrd" type="CharacterBody2D" node_paths=PackedStringArray("entity_sprite", "move_animations", "action_animations", "movement_state_machine", "move_component") groups=["npc"]]
+collision_layer = 8
+collision_mask = 128
+script = ExtResource("1_ilor2")
+entity_sprite = NodePath("Sprite2D")
+move_animations = NodePath("MoveAnimationPlayer")
+action_animations = NodePath("ActionAnimationPlayer")
+movement_state_machine = NodePath("MoveStateMachine")
+move_component = NodePath("MoveComponent")
+entity_id = "Wyrd"
+hostile = false
+can_be_damaged = false
+metadata/_custom_type_script = "uid://2k7a4wf13lj"
+
+[node name="AttentionBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 7
+
+[node name="NoticeShape" type="CollisionShape2D" parent="AttentionBox"]
+shape = SubResource("CircleShape2D_gov7c")
+debug_color = Color(0, 0.764706, 1, 0.176471)
+
+[node name="Hitbox" parent="." instance=ExtResource("2_gov7c")]
+position = Vector2(0, -10)
+collision_layer = 2
+collision_mask = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_48iat")
+position = Vector2(0, -25)
+texture = ExtResource("3_biyvt")
+hframes = 51
+
+[node name="GroundCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_7rwky")
+
+[node name="MoveAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yc1lo"),
+&"WyrdMove": ExtResource("4_biyvt")
+}
+
+[node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_asgkc")
+}
+autoplay = "idle"
+
+[node name="MoveStateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("4_6angc")]
+starting_state = NodePath("idle")
+
+[node name="move" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "jump_state")]
+script = ExtResource("5_yc1lo")
+fall_state = NodePath("../fall")
+idle_state = NodePath("../idle")
+jump_state = NodePath("../jump")
+move_speed = 120.0
+animation_name = "move"
+
+[node name="fall" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "move_state")]
+script = ExtResource("6_8a2b4")
+idle_state = NodePath("../idle")
+move_state = NodePath("../move")
+animation_name = "fall"
+
+[node name="idle" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("fall_state", "jump_state", "move_state")]
+script = ExtResource("7_qcbef")
+fall_state = NodePath("../fall")
+jump_state = NodePath("../jump")
+move_state = NodePath("../move")
+animation_name = "idle"
+
+[node name="jump" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "move_state")]
+script = ExtResource("8_q0cg4")
+fall_state = NodePath("../fall")
+idle_state = NodePath("../idle")
+move_state = NodePath("../move")
+animation_name = "jump"
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("attention_box")]
+script = ExtResource("9_gov7c")
+attention_box = NodePath("../AttentionBox")
