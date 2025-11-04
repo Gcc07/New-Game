@@ -80,6 +80,7 @@ func set_collision_size_equals_sprite(on: bool) -> void:
 			collision_shape.shape.set_radius(actual_sprite_width/2)
 		if collision_shape.shape.is_class("RectangleShape2D"):
 			collision_shape.shape.set_size(Vector2(actual_sprite_width, actual_sprite_height))
+	
 
 func set_hurtbox_size_equals_sprite(on: bool) -> void:
 	var actual_sprite_height = load(projectile_resource.sprite_texture).get_height() / (projectile_resource.num_of_frames) # Returns height (accounting for animated sprite frames)

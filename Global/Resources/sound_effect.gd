@@ -11,7 +11,12 @@ enum SOUND_EFFECT_TYPE {
 	HIT1,
 	PARRY,
 	WIND_UP,
-	SLASH1
+	SLASH1,
+	STEP1,
+	STEP2,
+	STEP3,
+	STEP4,
+	FOUR_FOOTSTEPS
 }
 
 @export_range(0, 10) var limit: int = 5 ## Maximum number of this SoundEffect to play simultaneously before culled.

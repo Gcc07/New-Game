@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://c5hvh64y4o77c"]
+[gd_scene load_steps=25 format=4 uid="uid://c5hvh64y4o77c"]
 
 [ext_resource type="Texture2D" uid="uid://cuip4hetwmctt" path="res://Assets/Art/TMAP.png" id="1_3ptaa"]
 [ext_resource type="PackedScene" uid="uid://cly0gxqkuoiej" path="res://Global/Entities/Player/player.tscn" id="2_w0ego"]
@@ -134,6 +134,15 @@ shader_parameter/alpha_threshold = 0.0
 shader_parameter/outline_samples = 8
 shader_parameter/shade_color = Color(1, 1, 1, 0)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8mjdq"]
+resource_local_to_scene = true
+shader = SubResource("Shader_t0tcr")
+shader_parameter/outline_color = Color(0.105882, 0.121569, 0.129412, 1)
+shader_parameter/outline_size = 1.0
+shader_parameter/alpha_threshold = 0.0
+shader_parameter/outline_samples = 8
+shader_parameter/shade_color = Color(1, 1, 1, 0)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f7wqt"]
 resource_local_to_scene = true
 shader = SubResource("Shader_t0tcr")
@@ -191,6 +200,10 @@ position = Vector2(240, 135)
 [node name="Handler" parent="." instance=ExtResource("5_dknhj")]
 material = SubResource("ShaderMaterial_8n0gi")
 position = Vector2(115, 218)
+
+[node name="Handler3" parent="." instance=ExtResource("5_dknhj")]
+material = SubResource("ShaderMaterial_8mjdq")
+position = Vector2(342, 85)
 
 [node name="Handler2" parent="." instance=ExtResource("5_dknhj")]
 material = SubResource("ShaderMaterial_f7wqt")

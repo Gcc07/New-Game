@@ -31,6 +31,7 @@ func process_physics(delta: float) -> MovementState:
 	# After landing, if still moving return move state. If not moving, return idle.
 	if parent.is_on_floor():
 		if movement != 0:
+			AudioManager.create_audio(SoundEffect.SOUND_EFFECT_TYPE.STEP4)
 			return move_state
 		return idle_state
 	

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://gexhtjkw0puf"
+path="res://.godot/imported/slime10.wav-2b2353d83bff0479590e739a9f88ab2d.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/rpg_sound_pack/RPG Sound Pack/NPC/slime/slime10.wav"
+dest_files=["res://.godot/imported/slime10.wav-2b2353d83bff0479590e739a9f88ab2d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
