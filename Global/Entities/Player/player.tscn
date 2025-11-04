@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ccjwagyri34kn" path="res://Assets/Art/Characters/Renji_horozontal.png" id="4_ffmis"]
 [ext_resource type="Script" uid="uid://drxj12esmfjyt" path="res://Global/Entities/Player/player_action_component.gd" id="4_ywbxx"]
 [ext_resource type="PackedScene" uid="uid://c2njkfc01sgji" path="res://Global/Entities/StateMachines/move_state_machine.tscn" id="6_8sue5"]
-[ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Components/health_component.gd" id="7_eu4vx"]
+[ext_resource type="Script" uid="uid://d0m28cl6gml5p" path="res://Global/Entities/Components/health_component.gd" id="7_eu4vx"]
 [ext_resource type="Script" uid="uid://vdwjy5ar2b6m" path="res://Global/Entities/PublicStates/Movement/move.gd" id="7_jklmg"]
 [ext_resource type="Script" uid="uid://dyrygqjk1mao2" path="res://Global/Entities/PublicStates/Movement/fall.gd" id="8_h88bi"]
 [ext_resource type="Script" uid="uid://bybtb1c113b3d" path="res://Global/Entities/PublicStates/Movement/idle.gd" id="9_3wfp4"]
